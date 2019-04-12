@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_list_quizz"
+            android:icon="@drawable/ic_help"
+            android:title="Liste des Quizz" />
+        <item
+            android:id="@+id/nav_modif_quizz"
+            android:icon="@drawable/ic_edit"
+            android:title="Modifications" />
+        <item
+            android:id="@+id/nav_type_de_quizz"
+            android:icon="@drawable/ic_assignment"
+            android:title="Type de quizz" />
+        <item
+            android:id="@+id/nav_theme"
+            android:icon="@drawable/ic_view_module"
+            android:title="Thèmes" />
+        <item
+            android:id="@+id/nav_parametre"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Paramètre" />
+    </group>
+
+</menu>
