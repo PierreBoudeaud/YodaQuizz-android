@@ -1,6 +1,5 @@
 package fr.eni.geekoquizz.adapter;
 
-import android.opengl.Visibility;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -12,12 +11,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import fr.eni.geekoquizz.R;
-import fr.eni.geekoquizz.activity.MainActivity;
 
-public class QuizzAdapter extends RecyclerView.Adapter<QuizzAdapter.ViewHolder>
+public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.ViewHolder>
 {
     //Permet de stocker les données à afficher.
     private String[][] mDataset;
@@ -64,14 +61,14 @@ public class QuizzAdapter extends RecyclerView.Adapter<QuizzAdapter.ViewHolder>
     }
 
     // Constructeur qui attend les données à afficher en paramètre
-    public QuizzAdapter(String[][] myDataset)
+    public ListQuizzAdapter(String[][] myDataset)
     {
         mDataset = myDataset;
     }
 
     @NonNull
     @Override
-    public QuizzAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ListQuizzAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_quizz_simple,viewGroup, false);
 
         ViewHolder vh = new ViewHolder(v);
@@ -80,7 +77,7 @@ public class QuizzAdapter extends RecyclerView.Adapter<QuizzAdapter.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final QuizzAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ListQuizzAdapter.ViewHolder viewHolder, int i) {
         viewHolder.ivPhoto1.setImageResource(R.drawable.quizz1_01);
         viewHolder.ivPhoto2.setImageResource(R.drawable.quizz1_02);
         viewHolder.ivPhoto3.setImageResource(R.drawable.quizz1_03);

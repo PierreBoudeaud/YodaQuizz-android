@@ -1,0 +1,80 @@
+package fr.eni.geekoquizz.adapter;
+
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+import fr.eni.geekoquizz.R;
+
+public class ModifQuizzAdapter extends RecyclerView.Adapter<ModifQuizzAdapter.ViewHolder>
+{
+    //Permet de stocker les données à afficher.
+    private String[][] mDataset;
+
+    // Fournit une référence aux vues pour chaque élément de données
+    public static class ViewHolder extends RecyclerView.ViewHolder
+    {
+        // Chaque élément contient seulement une TextView
+        public ImageView ivPhoto1,ivPhoto2,ivPhoto3;
+
+        public TextView tvTitre, tvNbQuestion;
+
+        public RatingBar rbDifficult;
+
+        public Button btnModif;
+
+        public ViewHolder(View v)
+        {
+            super(v);
+            ivPhoto1 = v.findViewById(R.id.ivPhoto1);
+            ivPhoto2 = v.findViewById(R.id.ivPhoto2);
+            ivPhoto3 = v.findViewById(R.id.ivPhoto3);
+            tvTitre = v.findViewById(R.id.tvTitreQuizz);
+            tvNbQuestion = v.findViewById(R.id.tvNbQuestion);
+            rbDifficult = v.findViewById(R.id.ratingBar);
+            btnModif = v.findViewById(R.id.btnActionQuizz);
+        }
+    }
+
+    // Constructeur qui attend les données à afficher en paramètre
+    public ModifQuizzAdapter(String[][] myDataset)
+    {
+        mDataset = myDataset;
+    }
+
+    @NonNull
+    @Override
+    public ModifQuizzAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_quizz_modif,viewGroup, false);
+
+        ViewHolder vh = new ViewHolder(v);
+
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final ModifQuizzAdapter.ViewHolder viewHolder, int i) {
+        viewHolder.ivPhoto1.setImageResource(R.drawable.quizz1_01);
+        viewHolder.ivPhoto2.setImageResource(R.drawable.quizz1_02);
+        viewHolder.ivPhoto3.setImageResource(R.drawable.quizz1_03);
+        viewHolder.tvTitre.setText(mDataset[i][3]);
+        viewHolder.tvNbQuestion.setText(mDataset[i][4]);
+        viewHolder.rbDifficult.setRating(Float.valueOf(mDataset[i][5]));
+        viewHolder.btnModif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDataset.length;
+    }
+}
