@@ -89,4 +89,5 @@
     <string name="cvQuizzDetailDescription">Description :</string>
     <string name="cvQuizzDetailTo">De :</string>
     <string name="cvQuizzDetailThe">, Le :</string>
+    <string name="cvQuizzModif">MODIFIER</string>
 </resources>
