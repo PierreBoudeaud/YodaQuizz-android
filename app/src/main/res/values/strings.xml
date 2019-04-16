@@ -86,7 +86,7 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="CvQuizzQuestion">Questions</string>
-    <string name="cvQuizzPlay">JOUER !!!</string>
+    <string name="cvQuizzPlay">JOUER </string>
     <string name="CvQuizzDifficult">Difficulté :</string>
     <string name="CvQuizzDetailType">Types :</string>
     <string name="CVQuizzDetailTheme">Thèmes :</string>
@@ -94,4 +94,5 @@
     <string name="cvQuizzDetailTo">De :</string>
     <string name="cvQuizzDetailThe">, Le :</string>
     <string name="cvQuizzModif">MODIFIER</string>
+    <string name="btn_stat">STAT</string>
 </resources>

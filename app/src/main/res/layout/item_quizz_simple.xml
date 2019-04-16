@@ -94,6 +94,7 @@
             android:text="@string/CvQuizzQuestion"
             android:textSize="14sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/ivPhoto2"
             app:layout_constraintStart_toEndOf="@+id/tvNbQuestion"
             app:layout_constraintTop_toBottomOf="@+id/tvTitreQuizz" />
 
@@ -101,18 +102,40 @@
             android:id="@+id/btnActionQuizz"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_height="77dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/side_nav_bar"
             android:fontFamily="@font/roboto_medium"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:text="@string/cvQuizzPlay"
+            android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintBottom_toTopOf="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="@+id/ivPhoto1"
+            app:layout_constraintStart_toStartOf="@+id/ivPhoto1"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitreQuizz" />
+
+        <Button
+            android:id="@+id/btnActionQuizz2"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="0dp"
+            android:layout_height="77dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/side_nav_bar"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/btn_stat"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="@+id/ivPhoto3"
+            app:layout_constraintStart_toStartOf="@+id/ivPhoto3"
             app:layout_constraintTop_toBottomOf="@+id/tvTitreQuizz" />
 
         <TextView
@@ -120,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/CvQuizzDifficult"
             android:textSize="30sp"
@@ -140,8 +163,10 @@
             android:stepSize="0.5"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.846"
             app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView4" />
+            app:layout_constraintTop_toTopOf="@+id/textView4"
+            app:layout_constraintVertical_bias="1.0" />
 
         <ImageButton
             android:id="@+id/btnColapse"
@@ -149,12 +174,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/side_nav_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
 
         <android.support.constraint.ConstraintLayout
@@ -162,6 +191,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:visibility="gone"
