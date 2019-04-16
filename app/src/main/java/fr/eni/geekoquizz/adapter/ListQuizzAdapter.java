@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import fr.eni.geekoquizz.R;
 
@@ -97,6 +98,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         viewHolder.btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Nan , il est pas encore temps", Toast.LENGTH_LONG).show();
             }
         });
 

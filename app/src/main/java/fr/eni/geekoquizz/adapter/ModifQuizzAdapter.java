@@ -1,14 +1,18 @@
 package fr.eni.geekoquizz.adapter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import fr.eni.geekoquizz.R;
 
@@ -29,6 +33,8 @@ public class ModifQuizzAdapter extends RecyclerView.Adapter<ModifQuizzAdapter.Vi
 
         public Button btnModif;
 
+        public ImageButton btnDelete;
+
         public ViewHolder(View v)
         {
             super(v);
@@ -39,6 +45,7 @@ public class ModifQuizzAdapter extends RecyclerView.Adapter<ModifQuizzAdapter.Vi
             tvNbQuestion = v.findViewById(R.id.tvNbQuestion);
             rbDifficult = v.findViewById(R.id.ratingBar);
             btnModif = v.findViewById(R.id.btnActionQuizz);
+            btnDelete = v.findViewById(R.id.btnRemoveQuizz);
         }
     }
 
@@ -69,6 +76,30 @@ public class ModifQuizzAdapter extends RecyclerView.Adapter<ModifQuizzAdapter.Vi
         viewHolder.btnModif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Flemme ^^", Toast.LENGTH_LONG).show();
+            }
+        });
+        viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext())
+                        .setCancelable(true)
+                        .setTitle("Supression du Quizz ?")
+                        .setMessage("Étes-vous sûr de suprrimer ce quizz ?")
+                        .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(v.getContext(),"Tu y a crus hein ;)",Toast.LENGTH_LONG).show();
+                            }
+                        }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(v.getContext(),"J'avais la flemme de toute façon",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }

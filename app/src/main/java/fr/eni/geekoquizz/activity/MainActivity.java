@@ -1,8 +1,10 @@
 package fr.eni.geekoquizz.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +14,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import java.text.BreakIterator;
 
 import fr.eni.geekoquizz.R;
 import fr.eni.geekoquizz.adapter.ListQuizzAdapter;
@@ -23,15 +29,12 @@ import fr.eni.geekoquizz.adapter.ModifQuizzAdapter;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private RecyclerView.LayoutManager LayoutManagerQuizz;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -39,13 +42,19 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         navigationView.getMenu().getItem(0).setChecked(true);
-        this.setTitle(R.string.title_activity_list_quizz);
-
         switchLayout(R.id.nav_list_quizz);
-
         toggle.syncState();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        View headerView = navigationView.getHeaderView(0);
+        TextView tvPseudo = (TextView)headerView.findViewById(R.id.tvPseudo);
+        tvPseudo.setText(sp.getString("example_text",""));
     }
 
     @Override
@@ -58,12 +67,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         switch (id)
         {
             case R.id.nav_list_quizz:
@@ -91,6 +102,8 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
+
     public void switchLayout(int idItem)
     {
         String[][] infos = {
@@ -100,10 +113,10 @@ public class MainActivity extends AppCompatActivity
         RecyclerView recyclerViewQuizz = (RecyclerView) findViewById(R.id.rvQuizz);
         ImageButton btnAddQuizz = (ImageButton)findViewById(R.id.btnAddQuizz);
         recyclerViewQuizz.setHasFixedSize(true);
-        LayoutManagerQuizz = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManagerQuizz = new LinearLayoutManager(this);
         DividerItemDecoration divider = new DividerItemDecoration(recyclerViewQuizz.getContext(),DividerItemDecoration.VERTICAL);
         recyclerViewQuizz.addItemDecoration(divider);
-        recyclerViewQuizz.setLayoutManager(LayoutManagerQuizz);
+        recyclerViewQuizz.setLayoutManager(layoutManagerQuizz);
         switch(idItem)
         {
             case R.id.nav_list_quizz :
@@ -126,4 +139,6 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
     }
+
+
 }
