@@ -99,7 +99,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvTitreQuizz" />
 
         <Button
-            android:id="@+id/btnActionQuizz"
+            android:id="@+id/btnPlayQuizz"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="0dp"
             android:layout_height="77dp"
@@ -120,7 +120,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvTitreQuizz" />
 
         <Button
-            android:id="@+id/btnActionQuizz2"
+            android:id="@+id/btnStatQuizz"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="0dp"
             android:layout_height="77dp"
