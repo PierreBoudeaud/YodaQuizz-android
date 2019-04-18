@@ -146,11 +146,15 @@ public class Question implements Serializable {
     }
 
     public boolean hasMultipleResponses() {
+        return getNbCorrectResponse() > 1;
+    }
+
+    public int getNbCorrectResponse() {
         int nbCorrectResponse = 0;
         for (Reponse reponse: reponses) {
             if(reponse.isCorrect()) nbCorrectResponse++;
         }
-        return nbCorrectResponse > 1;
+        return nbCorrectResponse;
     }
 
     public Reponse getReponseById(int id) {

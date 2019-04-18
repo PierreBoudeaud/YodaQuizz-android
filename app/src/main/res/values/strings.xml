@@ -95,4 +95,12 @@
     <string name="cvQuizzDetailThe">, Le :</string>
     <string name="cvQuizzModif">MODIFIER</string>
     <string name="btn_stat">STAT</string>
+    <string name="title_activity_quizz">Quizz</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="btn_exit_quizz">Quitter</string>
+    <string name="btn_joker_quizz">Joker</string>
+    <string name="btn_valid_quizz">Valider</string>
+    <string name="congratulation">Félicitation !!!</string>
 </resources>

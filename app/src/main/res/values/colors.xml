@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="btnAddQuizz">#D5D5D5</color>
+    <color name="Exit_btn_quizz">#BE0404</color>
+    <color name="valid_btn_quizz">#096A09</color>
+    <color name="joker_btn_quizz">#DD9000</color>
 </resources>

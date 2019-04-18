@@ -1,5 +1,6 @@
 package fr.eni.geekoquizz.adapter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import fr.eni.geekoquizz.R;
+import fr.eni.geekoquizz.activity.QuizzActivity;
 
 public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.ViewHolder>
 {
@@ -30,7 +32,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
 
         public RatingBar rbDifficult;
 
-        public Button btnPlay;
+        public Button btnPlay, btnStat;
 
         public ImageButton btnCollapse;
 
@@ -52,10 +54,11 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
             tvAuteur = v.findViewById(R.id.tvAuteur);
             tvDate = v.findViewById(R.id.tvDate);
             tvDecription = v.findViewById(R.id.tvDescription);
-            tvNbQuestion = v.findViewById(R.id.tvNbQuestion);
+            tvNbQuestion = v.findViewById(R.id.tvNbQuestionquizz);
             tvType = v.findViewById(R.id.tvType);
             rbDifficult = v.findViewById(R.id.ratingBar);
-            btnPlay = v.findViewById(R.id.btnActionQuizz);
+            btnPlay = v.findViewById(R.id.btnPlayQuizz);
+            btnStat = v.findViewById(R.id.btnStatQuizz);
             btnCollapse = v.findViewById(R.id.btnColapse);
             cvDetailQuizz = v.findViewById(R.id.cvDetail);
         }
@@ -96,6 +99,14 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         viewHolder.tvDate.setText(mDataset[i][13]);
         viewHolder.tvDecription.setText(mDataset[i][14]);
         viewHolder.btnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), QuizzActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        viewHolder.btnStat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Nan , il est pas encore temps", Toast.LENGTH_LONG).show();
