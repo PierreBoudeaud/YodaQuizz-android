@@ -42,7 +42,7 @@ public class ModifQuizzAdapter extends RecyclerView.Adapter<ModifQuizzAdapter.Vi
             ivPhoto2 = v.findViewById(R.id.ivPhoto2);
             ivPhoto3 = v.findViewById(R.id.ivPhoto3);
             tvTitre = v.findViewById(R.id.tvTitreQuizz);
-            tvNbQuestion = v.findViewById(R.id.tvNbQuestion);
+            tvNbQuestion = v.findViewById(R.id.tvNbQuestionquizz);
             rbDifficult = v.findViewById(R.id.ratingBar);
             btnModif = v.findViewById(R.id.btnActionQuizz);
             btnDelete = v.findViewById(R.id.btnRemoveQuizz);

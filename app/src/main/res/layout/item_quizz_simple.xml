@@ -71,7 +71,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/tvNbQuestion"
+            android:id="@+id/tvNbQuestionquizz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -95,7 +95,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/ivPhoto2"
-            app:layout_constraintStart_toEndOf="@+id/tvNbQuestion"
+            app:layout_constraintStart_toEndOf="@+id/tvNbQuestionquizz"
             app:layout_constraintTop_toBottomOf="@+id/tvTitreQuizz" />
 
         <Button
@@ -148,7 +148,7 @@
             android:text="@string/CvQuizzDifficult"
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNbQuestion" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNbQuestionquizz" />
 
         <RatingBar
             android:id="@+id/ratingBar"

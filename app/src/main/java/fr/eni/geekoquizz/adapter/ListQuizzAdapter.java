@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import fr.eni.geekoquizz.R;
 import fr.eni.geekoquizz.activity.QuizzActivity;
-import fr.eni.geekoquizz.bo.Quizz;
 
 public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.ViewHolder>
 {
@@ -55,7 +54,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
             tvAuteur = v.findViewById(R.id.tvAuteur);
             tvDate = v.findViewById(R.id.tvDate);
             tvDecription = v.findViewById(R.id.tvDescription);
-            tvNbQuestion = v.findViewById(R.id.tvNbQuestion);
+            tvNbQuestion = v.findViewById(R.id.tvNbQuestionquizz);
             tvType = v.findViewById(R.id.tvType);
             rbDifficult = v.findViewById(R.id.ratingBar);
             btnPlay = v.findViewById(R.id.btnPlayQuizz);
