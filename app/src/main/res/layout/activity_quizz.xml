@@ -15,6 +15,7 @@
         android:background="@color/joker_btn_quizz"
         android:drawableTop="@drawable/ic_toys_black_24dp"
         android:fontFamily="@font/roboto_medium"
+        android:onClick="bntJokerOnCkick"
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:paddingRight="8dp"
@@ -26,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tv_nb_question"
+        android:id="@+id/tvNbQuestionquizz"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -51,7 +52,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tvQuestion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nb_question"
+        app:layout_constraintTop_toBottomOf="@+id/tvNbQuestionquizz"
         app:srcCompat="@drawable/quizz1_02" />
 
     <ProgressBar
@@ -82,18 +83,18 @@
         android:textAlignment="center"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
-        app:layout_constraintEnd_toStartOf="@+id/bnt_repD"
+        app:layout_constraintEnd_toStartOf="@+id/btn_repD"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/bnt_repD"
+        android:id="@+id/btn_repD"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="194dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:onClick="onClickRepD"
         android:fontFamily="@font/roboto_medium"
+        android:onClick="onClickRepD"
         android:text="Sale Pute"
         android:textAlignment="center"
         android:textSize="14sp"
@@ -107,9 +108,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:onClick="onClickRepA"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/roboto_medium"
+        android:onClick="onClickRepA"
         android:text="Réponse A"
         android:textAlignment="center"
         android:textSize="14sp"
@@ -124,12 +125,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:onClick="onClickRepB"
         android:fontFamily="@font/roboto_medium"
+        android:onClick="onClickRepB"
         android:text="Réponse B"
         android:textAlignment="center"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/bnt_repD"
+        app:layout_constraintBottom_toTopOf="@+id/btn_repD"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
@@ -137,9 +138,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Quelle est le nom de ta maman ?"
         android:textAlignment="center"
