@@ -13,6 +13,8 @@ public class Quizz implements Serializable {
 
     private Date dateModif;
 
+    private float difficulte;
+
     private String description;
 
     private int version;
@@ -34,14 +36,15 @@ public class Quizz implements Serializable {
         this.dateModif = new Date();
     }
 
-    public Quizz(String nom, String description) {
+    public Quizz(String nom, String description, float difficulte) {
         this();
         this.nom = nom;
         this.description = description;
+        this.difficulte = difficulte;
     }
 
-    public Quizz(int id, String nom, Date dateCrea, Date dateModif, String description, int version, Utilisateur createur, List<Question> questions, List<Theme> themes, Type type, List<Statistique> statistiques) {
-        this(nom, description);
+    public Quizz(int id, String nom, float difficulte ,Date dateCrea, Date dateModif, String description, int version, Utilisateur createur, List<Question> questions, List<Theme> themes, Type type, List<Statistique> statistiques) {
+        this(nom, description,difficulte);
         this.id = id;
         this.dateCrea = dateCrea;
         this.dateModif = dateModif;
@@ -63,6 +66,14 @@ public class Quizz implements Serializable {
 
     public String getNom() {
         return nom;
+    }
+
+    public float getDifficulte() {
+        return difficulte;
+    }
+
+    public void setDifficulte(float difficulte) {
+        this.difficulte = difficulte;
     }
 
     public void setNom(String nom) {

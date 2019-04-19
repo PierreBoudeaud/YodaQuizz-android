@@ -71,7 +71,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/tvNbQuestionquizz"
+            android:id="@+id/tvNbQuestionStat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -95,7 +95,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/ivPhoto2"
-            app:layout_constraintStart_toEndOf="@+id/tvNbQuestionquizz"
+            app:layout_constraintStart_toEndOf="@+id/tvNbQuestionStat"
             app:layout_constraintTop_toBottomOf="@+id/tvTitreQuizz" />
 
         <Button
@@ -148,7 +148,7 @@
             android:text="@string/CvQuizzDifficult"
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNbQuestionquizz" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNbQuestionStat" />
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -201,7 +201,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnColapse">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tvText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -212,7 +212,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/tvText3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -220,12 +220,12 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="@string/CVQuizzDetailTheme"
-                app:layout_constraintBottom_toTopOf="@+id/textView7"
+                app:layout_constraintBottom_toTopOf="@+id/tvText4"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintTop_toBottomOf="@+id/tvText2" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/tvText4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -258,7 +258,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:text="*Type*"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView5"
+                app:layout_constraintStart_toEndOf="@+id/tvText2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -271,10 +271,10 @@
                 android:text="*Auteur*"
                 app:layout_constraintBottom_toTopOf="@+id/tvDescription"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
-                app:layout_constraintStart_toEndOf="@+id/textView7" />
+                app:layout_constraintStart_toEndOf="@+id/tvText4" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/tvText5"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
@@ -294,7 +294,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/tvDescription"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/textView11" />
+                app:layout_constraintStart_toEndOf="@+id/tvText5" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline"
@@ -311,7 +311,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/tvAuteur"
-                app:layout_constraintStart_toEndOf="@+id/textView6"
+                app:layout_constraintStart_toEndOf="@+id/tvText3"
                 app:layout_constraintTop_toBottomOf="@+id/tvType"
                 app:srcCompat="@drawable/film" />
 
