@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/infostat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.infostat.InfoFragment">
+
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/infostatDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.infostat.InfoFragment">
+
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/tvNbQuestionStat"
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/almendra_display"
+                android:text="0"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="70sp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_thin"
+                android:text="@string/CvQuizzQuestion"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvNbQuestionStat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toTopOf="@+id/tvNbQuestionStat" />
+
+            <RatingBar
+                android:id="@+id/rbDifficulte"
+                style="@android:style/Widget.Material.Light.RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:clickable="false"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="10"
+                android:stepSize="0.5"
+                app:layout_constraintBottom_toBottomOf="@+id/tvText1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.898"
+                app:layout_constraintStart_toEndOf="@+id/tvText1"
+                app:layout_constraintTop_toBottomOf="@+id/tvText"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tvText1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_thin"
+                android:text="@string/CvQuizzDifficult"
+                android:textAlignment="textEnd"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintStart_toStartOf="@+id/tvNbQuestionStat"
+                app:layout_constraintTop_toBottomOf="@+id/tvNbQuestionStat" />
+
+            <TextView
+                android:id="@+id/tvType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_thin"
+                android:text="*test*"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvText2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tvText2"
+                app:layout_constraintTop_toTopOf="@+id/tvText2" />
+
+            <TextView
+                android:id="@+id/tvText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/roboto_thin"
+                android:text="@string/CvQuizzDetailType"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/tvNbQuestionStat"
+                app:layout_constraintTop_toBottomOf="@+id/tvText1" />
+
+            <TextView
+                android:id="@+id/tvText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_thin"
+                android:text="@string/CVQuizzDetailTheme"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvText2" />
+
+            <ImageView
+                android:id="@+id/ivTheme1"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tvText3"
+                app:layout_constraintStart_toEndOf="@+id/tvText3"
+                app:layout_constraintTop_toTopOf="@+id/tvText3"
+                android:onClick="GetDescriptTheme"
+                tools:ignore="OnClick" />
+
+            <ImageView
+                android:id="@+id/ivTheme2"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tvText3"
+                app:layout_constraintStart_toEndOf="@+id/ivTheme1"
+                app:layout_constraintTop_toTopOf="@+id/tvText3"
+                android:onClick="GetDescriptTheme"
+                tools:ignore="OnClick" />
+
+            <ImageView
+                android:id="@+id/ivTheme3"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tvText3"
+                app:layout_constraintStart_toEndOf="@+id/ivTheme2"
+                app:layout_constraintTop_toTopOf="@+id/tvText3"
+                android:onClick="GetDescriptTheme"
+                tools:ignore="OnClick"/>
+
+            <ImageView
+                android:id="@+id/ivTheme4"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tvText3"
+                app:layout_constraintStart_toEndOf="@+id/ivTheme3"
+                app:layout_constraintTop_toTopOf="@+id/tvText3"
+                app:layout_constraintVertical_bias="0.333"
+                android:onClick="GetDescriptTheme"
+                tools:ignore="OnClick"/>
+
+            <ImageView
+                android:id="@+id/ivTheme5"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tvText3"
+                app:layout_constraintStart_toEndOf="@+id/ivTheme4"
+                app:layout_constraintTop_toTopOf="@+id/tvText3"
+                android:onClick="GetDescriptTheme"
+                tools:ignore="OnClick"/>
+
+            <ImageView
+                android:id="@+id/ivTheme6"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tvText3"
+                app:layout_constraintStart_toEndOf="@+id/ivTheme5"
+                app:layout_constraintTop_toTopOf="@+id/tvText3"
+                android:onClick="GetDescriptTheme"
+                tools:ignore="OnClick"/>
+
+            <TextView
+                android:id="@+id/tvText4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/roboto_thin"
+                android:text="@string/cvQuizzDetailTo"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/tvNbQuestionStat"
+                app:layout_constraintTop_toBottomOf="@+id/tvText3" />
+
+            <TextView
+                android:id="@+id/tvAuteur"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_thin"
+                android:text="*test*"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvText4"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/tvText4"
+                app:layout_constraintTop_toTopOf="@+id/tvText4" />
+
+            <TextView
+                android:id="@+id/tvText5"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/roboto_thin"
+                android:text="@string/cvQuizzDetailThe"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAuteur"
+                app:layout_constraintStart_toEndOf="@+id/tvAuteur"
+                app:layout_constraintTop_toTopOf="@+id/tvAuteur"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="113dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/roboto_thin"
+                android:text="*test*"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvText5"
+                app:layout_constraintStart_toEndOf="@+id/tvText5"
+                app:layout_constraintTop_toTopOf="@+id/tvText5" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_thin"
+                android:text="*test*"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvNbQuestionStat"
+                app:layout_constraintTop_toBottomOf="@+id/tvText4"
+                app:layout_constraintVertical_bias="0.137" />
+
+            <TextView
+                android:id="@+id/tvtext6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/tvInfoDescript"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutImage" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/tvInfoBase"
+                android:textAlignment="center"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tvtext6"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvtext6"
+                app:layout_constraintTop_toBottomOf="@+id/tvtext6"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayoutImage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="0.9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription">
+
+                <ImageView
+                    android:id="@+id/ivQuest1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/quizz1_01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline7"
+                    app:layout_constraintHorizontal_weight="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.33" />
+
+                <ImageView
+                    android:id="@+id/ivQuest2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/quizz1_02"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintHorizontal_weight="0.3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline7"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.66" />
+
+                <ImageView
+                    android:id="@+id/ivQuest3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/quizz1_03"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="0.3"
+                    app:layout_constraintStart_toStartOf="@+id/guideline8"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
