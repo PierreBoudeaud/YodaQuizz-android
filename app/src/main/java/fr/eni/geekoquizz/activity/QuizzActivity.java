@@ -1,5 +1,6 @@
 package fr.eni.geekoquizz.activity;
 
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,6 +52,7 @@ public class QuizzActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizz);
+        this.setTitle(unQuizz.getNom());
         tvQuestion = findViewById(R.id.tvQuestion);
         tvNbQuestion = findViewById(R.id.tvNbQuestionquizz);
         btnRepA = findViewById(R.id.btn_repA);
@@ -277,6 +280,6 @@ public class QuizzActivity extends AppCompatActivity {
         ImageView imgGif = findViewById(R.id.ivGif);
         TextView tvResultat = findViewById(R.id.tvResultat);
         tvResultat.setText("Votre Score = " + Score);
-        Glide.with(this).load("https://data.whicdn.com/images/237337013/original.gif").into(imgGif);
+        Glide.with(this).load("file:///android_asset/imggif.gif").into(imgGif);
     }
 }
