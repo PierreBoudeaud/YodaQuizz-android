@@ -39,7 +39,7 @@ public class QuizzActivity extends AppCompatActivity {
     private Boolean isGoodResponse;
     private int nbCorrectResponse, nbResponseFound, indexQuestion, Score;
     private Reponse RepA1 = new Reponse("Blanc",true),RepB1 = new Reponse("Bleu",false),RepC1 = new Reponse("Rouge",false),RepD1 = new Reponse("Jaune",false);
-    private Reponse RepA2 =new Reponse("Valoo", true), RepB2=new Reponse("Pierre", true), RepC2=new Reponse("Antoine", true), RepD2=new Reponse("Anthony", false);
+    private Reponse RepA2 =new Reponse("Valoo", true), RepB2=new Reponse("Pierre", true), RepC2=new Reponse("Antoine", true), RepD2=new Reponse("Luke Skywalker", false);
     private Question Question1 = new Question("Quelle est la couleur du cheval blanc d'Henry IV ?",new Date(),new Date(),"",0,0,  new ArrayList<Reponse>(){{add(RepA1);add(RepB1); add(RepC1); add(RepD1);}});
     private Question Question2 = new Question("Quelle sont les créateurs de cette application",new Date(),new Date(),"",0,0,  new ArrayList<Reponse>(){{add(RepA2);add(RepB2); add(RepC2); add(RepD2);}});
     private Question uneQuestion;
@@ -131,10 +131,10 @@ public class QuizzActivity extends AppCompatActivity {
         btnRepB.setClickable(true);
         btnRepC.setClickable(true);
         btnRepD.setClickable(true);
-        btnRepA.setBackgroundColor(Color.TRANSPARENT);
-        btnRepB.setBackgroundColor(Color.TRANSPARENT);
-        btnRepC.setBackgroundColor(Color.TRANSPARENT);
-        btnRepD.setBackgroundColor(Color.TRANSPARENT);
+        btnRepA.setBackgroundResource(R.drawable.btn_background_question);
+        btnRepB.setBackgroundResource(R.drawable.btn_background_question);
+        btnRepC.setBackgroundResource(R.drawable.btn_background_question);
+        btnRepD.setBackgroundResource(R.drawable.btn_background_question);
         isGoodResponse = false;
         this.uneQuestion = puneQuestion;
         nbCorrectResponse = uneQuestion.getNbCorrectResponse();
@@ -154,14 +154,14 @@ public class QuizzActivity extends AppCompatActivity {
         {
             if (!uneQuestion.hasMultipleResponses())
             {
-                btnRepA.setBackgroundColor(Color.GREEN);
+                btnRepA.setBackgroundResource(R.drawable.btn_background_question_good);
                 isGoodResponse = true;
                 Score = Score + 1;
                 timer.onFinish();
             }
             else
             {
-                btnRepA.setBackgroundColor(Color.GREEN);
+                btnRepA.setBackgroundResource(R.drawable.btn_background_question_good);
                 nbResponseFound = nbResponseFound + 1;
                 if(nbResponseFound == nbCorrectResponse)
                 {
@@ -173,7 +173,7 @@ public class QuizzActivity extends AppCompatActivity {
         }
         else
         {
-            btnRepA.setBackgroundColor(Color.RED);
+            btnRepA.setBackgroundResource(R.drawable.btn_background_question_bad);
             isGoodResponse = false;
             timer.onFinish();
         }
@@ -184,14 +184,14 @@ public class QuizzActivity extends AppCompatActivity {
         {
             if (!uneQuestion.hasMultipleResponses())
             {
-                btnRepB.setBackgroundColor(Color.GREEN);
+                btnRepB.setBackgroundResource(R.drawable.btn_background_question_good);
                 isGoodResponse = true;
                 Score = Score + 1;
                 timer.onFinish();
             }
             else
             {
-                btnRepB.setBackgroundColor(Color.GREEN);
+                btnRepB.setBackgroundResource(R.drawable.btn_background_question_good);
                 nbResponseFound = nbResponseFound + 1;
                 if(nbResponseFound == nbCorrectResponse)
                 {
@@ -203,7 +203,7 @@ public class QuizzActivity extends AppCompatActivity {
         }
         else
         {
-            btnRepB.setBackgroundColor(Color.RED);
+            btnRepB.setBackgroundResource(R.drawable.btn_background_question_bad);
             isGoodResponse = false;
             timer.onFinish();
         }
@@ -214,14 +214,14 @@ public class QuizzActivity extends AppCompatActivity {
         {
             if (!uneQuestion.hasMultipleResponses())
             {
-                btnRepC.setBackgroundColor(Color.GREEN);
+                btnRepC.setBackgroundResource(R.drawable.btn_background_question_good);
                 isGoodResponse = true;
                 Score = Score + 1;
                 timer.onFinish();
             }
             else
             {
-                btnRepC.setBackgroundColor(Color.GREEN);
+                btnRepC.setBackgroundResource(R.drawable.btn_background_question_good);
                 nbResponseFound = nbResponseFound + 1;
                 if(nbResponseFound == nbCorrectResponse)
                 {
@@ -233,7 +233,7 @@ public class QuizzActivity extends AppCompatActivity {
         }
         else
         {
-            btnRepC.setBackgroundColor(Color.RED);
+            btnRepC.setBackgroundResource(R.drawable.btn_background_question_bad);
             isGoodResponse = false;
             timer.onFinish();
         }
@@ -244,14 +244,14 @@ public class QuizzActivity extends AppCompatActivity {
         {
             if (!uneQuestion.hasMultipleResponses())
             {
-                btnRepD.setBackgroundColor(Color.GREEN);
+                btnRepD.setBackgroundResource(R.drawable.btn_background_question_good);
                 isGoodResponse = true;
                 Score = Score + 1;
                 timer.onFinish();
             }
             else
             {
-                btnRepD.setBackgroundColor(Color.GREEN);
+                btnRepD.setBackgroundResource(R.drawable.btn_background_question_good);
                 nbResponseFound = nbResponseFound + 1;
                 if(nbResponseFound == nbCorrectResponse)
                 {
@@ -263,7 +263,7 @@ public class QuizzActivity extends AppCompatActivity {
         }
         else
         {
-            btnRepD.setBackgroundColor(Color.RED);
+            btnRepD.setBackgroundResource (R.drawable.btn_background_question_bad);
             isGoodResponse = false;
             timer.onFinish();
         }
