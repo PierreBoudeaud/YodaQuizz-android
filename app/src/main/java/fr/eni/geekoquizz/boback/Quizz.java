@@ -1,10 +1,14 @@
-package fr.eni.geekoquizz.bo;
+package fr.eni.geekoquizz.boback;
+
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class Quizz implements Serializable {
+
     private int id;
 
     private String nom;
@@ -13,11 +17,11 @@ public class Quizz implements Serializable {
 
     private Date dateModif;
 
-    private float difficulte;
-
     private String description;
 
     private int version;
+
+    private float difficulte;
 
     private Utilisateur createur;
 
@@ -36,27 +40,16 @@ public class Quizz implements Serializable {
         this.dateModif = new Date();
     }
 
-    public Quizz(String nom, String description, float difficulte) {
+    public Quizz(String nom, String description) {
         this();
         this.nom = nom;
         this.description = description;
+    }
+
+    public Quizz(int id, String nom,float difficulte ,Date dateCrea, Date dateModif, String description, int version, Utilisateur createur, List<Question> questions, List<Theme> themes, Type type, List<Statistique> statistiques) {
+        this(nom, description);
+        this.id = id;
         this.difficulte = difficulte;
-    }
-
-    public Quizz(int id, String nom, float difficulte ,Date dateCrea, Date dateModif, String description, int version, Utilisateur createur, List<Theme> themes, Type type) {
-        this(nom, description,difficulte);
-        this.id = id;
-        this.dateCrea = dateCrea;
-        this.dateModif = dateModif;
-        this.version = version;
-        this.createur = createur;
-        this.themes = themes;
-        this.type = type;
-    }
-
-    public Quizz(int id, String nom, float difficulte ,Date dateCrea, Date dateModif, String description, int version, Utilisateur createur, List<Question> questions, List<Theme> themes, Type type, List<Statistique> statistiques) {
-        this(nom, description,difficulte);
-        this.id = id;
         this.dateCrea = dateCrea;
         this.dateModif = dateModif;
         this.version = version;
@@ -77,14 +70,6 @@ public class Quizz implements Serializable {
 
     public String getNom() {
         return nom;
-    }
-
-    public float getDifficulte() {
-        return difficulte;
-    }
-
-    public void setDifficulte(float difficulte) {
-        this.difficulte = difficulte;
     }
 
     public void setNom(String nom) {
@@ -161,6 +146,54 @@ public class Quizz implements Serializable {
 
     public void setStatistiques(List<Statistique> statistiques) {
         this.statistiques = statistiques;
+    }
+
+    public float getDifficulte() {
+        return difficulte;
+    }
+
+    public void setDifficulte(float difficulte) {
+        this.difficulte = difficulte;
+    }
+
+    public List<String> getSomeImagesOfQuestions() {
+        List<String> result = new ArrayList<>();
+        int nbImage = this.questions.size() > 5 ? 5 : this.questions.size();
+        while(result.size() < nbImage) {
+            int num = generateRandomIntIntRange(questions.size()-1);
+            if(result.indexOf(questions.get(num).getImage()) == -1) {
+                result.add(this.questions.get(num).getImage());
+            }
+        }
+
+        return result;
+    }
+
+    private static int generateRandomIntIntRange(int max) {
+        Random r = new Random();
+        return r.nextInt((max - 0) + 1) + 0;
+    }
+
+    public fr.eni.geekoquizz.bo.Quizz toQuizz()
+    {
+        List<fr.eni.geekoquizz.bo.Theme> lesThemes = new ArrayList<>();
+        for(Theme unTheme : getThemes())
+        {
+            lesThemes.add(unTheme.toTheme());
+        }
+        List<fr.eni.geekoquizz.bo.Question> lesQuestions = new ArrayList<>();
+        for(Question uneQuestion :getQuestions())
+        {
+            lesQuestions.add(uneQuestion.toQuestion());
+        }
+        List<fr.eni.geekoquizz.bo.Statistique> lesStatistiques = new ArrayList<>();
+        for(Statistique uneStatistique : getStatistiques())
+        {
+            lesStatistiques.add(uneStatistique.toStatistique());
+        }
+        return new fr.eni.geekoquizz.bo.Quizz(
+               getId(), getNom(),getDifficulte(),getDateCrea(), getDateModif(), getDescription(), getVersion(), getCreateur().toUtilisateur(), lesQuestions, lesThemes, getType().toType(),lesStatistiques
+        );
     }
 
     @Override
