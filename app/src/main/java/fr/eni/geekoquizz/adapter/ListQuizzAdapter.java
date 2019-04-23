@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +19,7 @@ import java.util.List;
 
 import fr.eni.geekoquizz.R;
 import fr.eni.geekoquizz.bo.Quizz;
-import fr.eni.geekoquizz.infostat_Activity;
+import fr.eni.geekoquizz.activity.InfostatActivity;
 import fr.eni.geekoquizz.activity.QuizzActivity;
 
 public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.ViewHolder>
@@ -155,7 +154,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
                 view.getContext().startActivity(intent);
                 break;
             case 2:
-                Intent intent1 = new Intent(view.getContext(), infostat_Activity.class);
+                Intent intent1 = new Intent(view.getContext(), InfostatActivity.class);
                 intent1.putExtra("IdQuizz",idQuizz);
                 view.getContext().startActivity(intent1);
                 break;

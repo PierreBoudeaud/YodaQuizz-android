@@ -1,4 +1,4 @@
-package fr.eni.geekoquizz;
+package fr.eni.geekoquizz.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import fr.eni.geekoquizz.R;
 import fr.eni.geekoquizz.activity.QuizzActivity;
 import fr.eni.geekoquizz.adapter.ListStatAdapter;
 import fr.eni.geekoquizz.bo.Question;
@@ -35,7 +36,7 @@ import fr.eni.geekoquizz.bo.Utilisateur;
 import fr.eni.geekoquizz.ui.infostat.InfoFragment;
 import fr.eni.geekoquizz.ui.infostat.StatFragment;
 
-public class infostat_Activity extends AppCompatActivity {
+public class InfostatActivity extends AppCompatActivity {
 
     private Fragment monFragment = null;
 
