@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Geek\'o\'Quizz</string>
-    <string name="title_activity_main">Geek\'o\'Quizz</string>
+    <string name="app_name">Yoda Quizz</string>
+    <string name="title_activity_main">Yoda Quizz</string>
     <string name="title_activity_list_quizz">Liste des Quizz</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Geek\'O\'Quizz</string>
+    <string name="nav_header_title">Yoda Quizz</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Paramètre</string>
     <string name="nav_header_pseudo">*Pseudo ici*</string>

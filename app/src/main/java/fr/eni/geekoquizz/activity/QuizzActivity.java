@@ -79,7 +79,7 @@ public class QuizzActivity extends AppCompatActivity {
                 if(isGoodResponse)
                 {
                     Toast.makeText(QuizzActivity.this,"Bien joué",Toast.LENGTH_LONG).show();
-                    timeafterwin = new CountDownTimer(5000,1000) {
+                    timeafterwin = new CountDownTimer(3000,1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
 
@@ -97,7 +97,7 @@ public class QuizzActivity extends AppCompatActivity {
                 else
                 {
                     Toast.makeText(QuizzActivity.this,"T'est nul !",Toast.LENGTH_LONG).show();
-                    timeafterlose = new CountDownTimer(5000,1000) {
+                    timeafterlose = new CountDownTimer(3000,1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
 
