@@ -74,11 +74,10 @@
 
             <RatingBar
                 android:id="@+id/rbDifficulte"
-                style="@android:style/Widget.Material.Light.RatingBar"
+                style="@android:style/Widget.Material.Light.RatingBar.Indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="52dp"
                 android:clickable="false"
                 android:isIndicator="true"
                 android:numStars="5"
@@ -86,29 +85,27 @@
                 android:stepSize="0.5"
                 app:layout_constraintBottom_toBottomOf="@+id/tvText1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.898"
-                app:layout_constraintStart_toEndOf="@+id/tvText1"
-                app:layout_constraintTop_toBottomOf="@+id/tvText"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="@+id/tvText1" />
 
             <TextView
                 android:id="@+id/tvText1"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_thin"
                 android:text="@string/CvQuizzDifficult"
                 android:textAlignment="textEnd"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintEnd_toStartOf="@+id/rbDifficulte"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tvNbQuestionStat"
                 app:layout_constraintTop_toBottomOf="@+id/tvNbQuestionStat" />
 
             <TextView
                 android:id="@+id/tvType"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="28dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_thin"
@@ -135,143 +132,121 @@
                 android:id="@+id/tvText3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_thin"
                 android:text="@string/CVQuizzDetailTheme"
                 android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/horizontalScrollView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvText2" />
+                app:layout_constraintTop_toTopOf="@+id/horizontalScrollView" />
 
-            <ImageView
-                android:id="@+id/ivTheme1"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="8dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/tvText3"
-                app:layout_constraintStart_toEndOf="@+id/tvText3"
-                app:layout_constraintTop_toTopOf="@+id/tvText3"
-                android:onClick="GetDescriptTheme"
-                tools:ignore="OnClick" />
-
-            <ImageView
-                android:id="@+id/ivTheme2"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="8dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/tvText3"
-                app:layout_constraintStart_toEndOf="@+id/ivTheme1"
-                app:layout_constraintTop_toTopOf="@+id/tvText3"
-                android:onClick="GetDescriptTheme"
-                tools:ignore="OnClick" />
-
-            <ImageView
-                android:id="@+id/ivTheme3"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="8dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/tvText3"
-                app:layout_constraintStart_toEndOf="@+id/ivTheme2"
-                app:layout_constraintTop_toTopOf="@+id/tvText3"
-                android:onClick="GetDescriptTheme"
-                tools:ignore="OnClick"/>
-
-            <ImageView
-                android:id="@+id/ivTheme4"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/tvText3"
-                app:layout_constraintStart_toEndOf="@+id/ivTheme3"
-                app:layout_constraintTop_toTopOf="@+id/tvText3"
-                app:layout_constraintVertical_bias="0.333"
-                android:onClick="GetDescriptTheme"
-                tools:ignore="OnClick"/>
-
-            <ImageView
-                android:id="@+id/ivTheme5"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="8dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/tvText3"
-                app:layout_constraintStart_toEndOf="@+id/ivTheme4"
-                app:layout_constraintTop_toTopOf="@+id/tvText3"
-                android:onClick="GetDescriptTheme"
-                tools:ignore="OnClick"/>
-
-            <ImageView
-                android:id="@+id/ivTheme6"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="8dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/tvText3"
-                app:layout_constraintStart_toEndOf="@+id/ivTheme5"
-                app:layout_constraintTop_toTopOf="@+id/tvText3"
-                android:onClick="GetDescriptTheme"
-                tools:ignore="OnClick"/>
-
-            <TextView
-                android:id="@+id/tvText4"
-                android:layout_width="wrap_content"
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/roboto_thin"
-                android:text="@string/cvQuizzDetailTo"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/tvNbQuestionStat"
-                app:layout_constraintTop_toBottomOf="@+id/tvText3" />
-
-            <TextView
-                android:id="@+id/tvAuteur"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="@font/roboto_thin"
-                android:text="*test*"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvText4"
-                app:layout_constraintEnd_toStartOf="@+id/guideline"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tvText4"
-                app:layout_constraintTop_toTopOf="@+id/tvText4" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tvText3"
+                app:layout_constraintTop_toBottomOf="@+id/tvText2">
 
-            <TextView
-                android:id="@+id/tvText5"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="12dp"
-                android:fontFamily="@font/roboto_thin"
-                android:text="@string/cvQuizzDetailThe"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvAuteur"
-                app:layout_constraintStart_toEndOf="@+id/tvAuteur"
-                app:layout_constraintTop_toTopOf="@+id/tvAuteur"
-                app:layout_constraintVertical_bias="0.0" />
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="113dp"
-                android:layout_height="27dp"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/roboto_thin"
-                android:text="*test*"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvText5"
-                app:layout_constraintStart_toEndOf="@+id/tvText5"
-                app:layout_constraintTop_toTopOf="@+id/tvText5" />
+                    <ImageView
+                        android:id="@+id/ivTheme1"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:onClick="GetDescriptTheme"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="OnClick" />
+
+                    <ImageView
+                        android:id="@+id/ivTheme2"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:onClick="GetDescriptTheme"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivTheme1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="OnClick" />
+
+                    <ImageView
+                        android:id="@+id/ivTheme3"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:onClick="GetDescriptTheme"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivTheme2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        tools:ignore="OnClick" />
+
+                    <ImageView
+                        android:id="@+id/ivTheme4"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:onClick="GetDescriptTheme"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivTheme3"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="OnClick" />
+
+                    <ImageView
+                        android:id="@+id/ivTheme5"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:onClick="GetDescriptTheme"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivTheme4"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="OnClick" />
+
+                    <ImageView
+                        android:id="@+id/ivTheme6"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:onClick="GetDescriptTheme"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivTheme5"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="OnClick" />
+                </android.support.constraint.ConstraintLayout>
+            </HorizontalScrollView>
 
             <TextView
                 android:id="@+id/tvDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/roboto_thin"
@@ -280,17 +255,17 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/tvNbQuestionStat"
-                app:layout_constraintTop_toBottomOf="@+id/tvText4"
-                app:layout_constraintVertical_bias="0.137" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutImage"
+                app:layout_constraintVertical_bias="0.17" />
 
             <TextView
                 android:id="@+id/tvtext6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/roboto_medium"
@@ -299,9 +274,10 @@
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutImage" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+                app:layout_constraintVertical_bias="0.15" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -320,17 +296,88 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/constraintLayoutImage"
+                android:id="@+id/constraintLayout2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+                <TextView
+                    android:id="@+id/tvText4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_thin"
+                    android:text="@string/cvQuizzDetailTo"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.846" />
+
+                <TextView
+                    android:id="@+id/tvAuteur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto_thin"
+                    android:text="*test*"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvText4"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/tvText4"
+                    app:layout_constraintTop_toTopOf="@+id/tvText4" />
+
+                <TextView
+                    android:id="@+id/tvText5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/roboto_thin"
+                    android:text="@string/cvQuizzDetailThe"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvAuteur"
+                    app:layout_constraintStart_toEndOf="@+id/tvAuteur"
+                    app:layout_constraintTop_toTopOf="@+id/tvAuteur"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="113dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/roboto_thin"
+                    android:text="*test*"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvText5"
+                    app:layout_constraintStart_toEndOf="@+id/tvText5"
+                    app:layout_constraintTop_toTopOf="@+id/tvText5" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayoutImage"
+                android:layout_width="0dp"
+                android:layout_height="209dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+
                 android:layout_marginEnd="8dp"
                 android:orientation="horizontal"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_weight="0.9"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescription">
+                app:layout_constraintTop_toBottomOf="@+id/tvText3">
 
                 <ImageView
                     android:id="@+id/ivQuest1"
@@ -360,16 +407,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:src="@drawable/quizz1_02"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline8"
                     app:layout_constraintHorizontal_weight="0.3"
-                    app:layout_constraintStart_toStartOf="@+id/guideline7"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintStart_toStartOf="@+id/guideline7" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline8"
@@ -389,10 +433,11 @@
                     android:src="@drawable/quizz1_03"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintHorizontal_weight="0.3"
                     app:layout_constraintStart_toStartOf="@+id/guideline8"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="1.0" />
             </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
