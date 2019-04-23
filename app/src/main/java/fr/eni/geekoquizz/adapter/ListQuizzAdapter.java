@@ -14,16 +14,22 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import fr.eni.geekoquizz.R;
+import fr.eni.geekoquizz.bo.Quizz;
+import fr.eni.geekoquizz.infostat_Activity;
 import fr.eni.geekoquizz.activity.QuizzActivity;
 
 public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.ViewHolder>
 {
     //Permet de stocker les données à afficher.
-    private String[][] mDataset;
+    private List<Quizz> mDataset = new ArrayList<Quizz>();
 
     // Fournit une référence aux vues pour chaque élément de données
-    public static class ViewHolder extends RecyclerView.ViewHolder
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         // Chaque élément contient seulement une TextView
         public ImageView ivPhoto1,ivPhoto2,ivPhoto3,ivTheme1,ivTheme2,ivTheme3,ivTheme4,ivTheme5,ivTheme6;
@@ -32,7 +38,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
 
         public RatingBar rbDifficult;
 
-        public Button btnPlay, btnStat;
+        public Button btnPlay,btnInfoMain,btnStat;
 
         public ImageButton btnCollapse;
 
@@ -54,7 +60,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
             tvAuteur = v.findViewById(R.id.tvAuteur);
             tvDate = v.findViewById(R.id.tvDate);
             tvDecription = v.findViewById(R.id.tvDescription);
-            tvNbQuestion = v.findViewById(R.id.tvNbQuestionquizz);
+            tvNbQuestion = v.findViewById(R.id.tvNbQuestionStat);
             tvType = v.findViewById(R.id.tvType);
             rbDifficult = v.findViewById(R.id.ratingBar);
             btnPlay = v.findViewById(R.id.btnPlayQuizz);
@@ -62,12 +68,16 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
             btnCollapse = v.findViewById(R.id.btnColapse);
             cvDetailQuizz = v.findViewById(R.id.cvDetail);
         }
+        @Override
+        public void onClick(View view) {
+
+        }
     }
 
     // Constructeur qui attend les données à afficher en paramètre
-    public ListQuizzAdapter(String[][] myDataset)
+    public ListQuizzAdapter(List<Quizz> ListQuizz)
     {
-        mDataset = myDataset;
+        mDataset = ListQuizz;
     }
 
     @NonNull
@@ -82,22 +92,30 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull final ListQuizzAdapter.ViewHolder viewHolder, int i) {
+        final int idQuizz =  mDataset.get(i).getId();
         viewHolder.ivPhoto1.setImageResource(R.drawable.quizz1_01);
         viewHolder.ivPhoto2.setImageResource(R.drawable.quizz1_02);
         viewHolder.ivPhoto3.setImageResource(R.drawable.quizz1_03);
-        viewHolder.tvTitre.setText(mDataset[i][3]);
-        viewHolder.tvNbQuestion.setText(mDataset[i][4]);
-        viewHolder.rbDifficult.setRating(Float.valueOf(mDataset[i][5]));
-        viewHolder.tvType.setText(mDataset[i][6]);
-        viewHolder.ivTheme1.setImageResource(R.drawable.jeux_video);
-        viewHolder.ivTheme2.setImageResource(R.drawable.serie_tele);
-        viewHolder.ivTheme3.setImageResource(R.drawable.film);
-        viewHolder.ivTheme4.setImageResource(R.drawable.anime);
-        viewHolder.ivTheme5.setImageResource(R.drawable.pop_culture);
-        viewHolder.ivTheme6.setImageResource(R.drawable.livre);
-        viewHolder.tvAuteur.setText(mDataset[i][12]);
-        viewHolder.tvDate.setText(mDataset[i][13]);
-        viewHolder.tvDecription.setText(mDataset[i][14]);
+        viewHolder.tvTitre.setText(mDataset.get(i).getNom());
+        viewHolder.tvNbQuestion.setText(String.valueOf(59/*mDataset.get(i).getQuestions().size()*/));
+        viewHolder.rbDifficult.setRating(mDataset.get(i).getDifficulte());
+        viewHolder.tvType.setText(mDataset.get(i).getType().getNom());
+        viewHolder.ivTheme1.setImageResource(Integer.valueOf(mDataset.get(i).getThemes().get(0).getIcon()));
+        viewHolder.ivTheme2.setImageResource(Integer.valueOf(mDataset.get(i).getThemes().get(1).getIcon()));
+        viewHolder.ivTheme3.setImageResource(Integer.valueOf(mDataset.get(i).getThemes().get(2).getIcon()));
+        viewHolder.ivTheme4.setImageResource(Integer.valueOf(mDataset.get(i).getThemes().get(3).getIcon()));
+        viewHolder.ivTheme5.setImageResource(Integer.valueOf(mDataset.get(i).getThemes().get(4).getIcon()));
+        viewHolder.ivTheme6.setImageResource(Integer.valueOf(mDataset.get(i).getThemes().get(5).getIcon()));
+        viewHolder.tvAuteur.setText(mDataset.get(i).getCreateur().getNom());
+        String MaDate;
+        if(new android.text.format.DateFormat().format("yyyy-MM-dd", new Date()).equals(new android.text.format.DateFormat().format("yyyy-MM-dd", mDataset.get(i).getDateCrea()))){
+            MaDate = (String)new android.text.format.DateFormat().format("HH:mm", mDataset.get(i).getDateCrea());
+        }else{
+            MaDate = (String)new android.text.format.DateFormat().format("dd/MM/yy", mDataset.get(i).getDateCrea());
+        }
+        viewHolder.tvDate.setText(MaDate);
+        viewHolder.tvDecription.setText(mDataset.get(i).getDescription());
+
         viewHolder.btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,8 +126,14 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
 
         viewHolder.btnStat.setOnClickListener(new View.OnClickListener() {
             @Override
+            public void onClick(View v){
+                getBtn(1,v,idQuizz);
+            }
+        });
+        viewHolder.btnInfoMain.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Nan , il est pas encore temps", Toast.LENGTH_LONG).show();
+                getBtn(2,v,idQuizz);
             }
         });
 
@@ -130,8 +154,20 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         });
     }
 
+    public void getBtn(int id,View view,int idQuizz){
+        switch (id){
+            case 1:
+                Toast.makeText(view.getContext(), "Nan , il est pas encore temps", Toast.LENGTH_LONG).show();
+                break;
+            case 2:
+                Intent intent = new Intent(view.getContext(), infostat_Activity.class);
+                intent.putExtra("IdQuizz",idQuizz);
+                view.getContext().startActivity(intent);
+                break;
+        }
+    }
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 }

@@ -14,12 +14,15 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import fr.eni.geekoquizz.R;
+import fr.eni.geekoquizz.bo.Quizz;
 
 public class ModifQuizzAdapter extends RecyclerView.Adapter<ModifQuizzAdapter.ViewHolder>
 {
     //Permet de stocker les données à afficher.
-    private String[][] mDataset;
+    private List<Quizz> mDataset;
 
     // Fournit une référence aux vues pour chaque élément de données
     public static class ViewHolder extends RecyclerView.ViewHolder
@@ -42,7 +45,7 @@ public class ModifQuizzAdapter extends RecyclerView.Adapter<ModifQuizzAdapter.Vi
             ivPhoto2 = v.findViewById(R.id.ivPhoto2);
             ivPhoto3 = v.findViewById(R.id.ivPhoto3);
             tvTitre = v.findViewById(R.id.tvTitreQuizz);
-            tvNbQuestion = v.findViewById(R.id.tvNbQuestionquizz);
+            tvNbQuestion = v.findViewById(R.id.tvNbQuestionStat);
             rbDifficult = v.findViewById(R.id.ratingBar);
             btnModif = v.findViewById(R.id.btnActionQuizz);
             btnDelete = v.findViewById(R.id.btnRemoveQuizz);
@@ -50,7 +53,7 @@ public class ModifQuizzAdapter extends RecyclerView.Adapter<ModifQuizzAdapter.Vi
     }
 
     // Constructeur qui attend les données à afficher en paramètre
-    public ModifQuizzAdapter(String[][] myDataset)
+    public ModifQuizzAdapter(List<Quizz> myDataset)
     {
         mDataset = myDataset;
     }
@@ -70,9 +73,9 @@ public class ModifQuizzAdapter extends RecyclerView.Adapter<ModifQuizzAdapter.Vi
         viewHolder.ivPhoto1.setImageResource(R.drawable.quizz1_01);
         viewHolder.ivPhoto2.setImageResource(R.drawable.quizz1_02);
         viewHolder.ivPhoto3.setImageResource(R.drawable.quizz1_03);
-        viewHolder.tvTitre.setText(mDataset[i][3]);
-        viewHolder.tvNbQuestion.setText(mDataset[i][4]);
-        viewHolder.rbDifficult.setRating(Float.valueOf(mDataset[i][5]));
+        viewHolder.tvTitre.setText(mDataset.get(i).getNom());
+        viewHolder.tvNbQuestion.setText(String.valueOf(59/*mDataset.get(i).getQuestions().size()*/));
+        viewHolder.rbDifficult.setRating(Float.valueOf(mDataset.get(i).getDifficulte()));
         viewHolder.btnModif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +109,6 @@ public class ModifQuizzAdapter extends RecyclerView.Adapter<ModifQuizzAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 }

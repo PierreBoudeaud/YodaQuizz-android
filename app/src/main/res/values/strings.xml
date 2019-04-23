@@ -95,6 +95,12 @@
     <string name="cvQuizzDetailThe">, Le :</string>
     <string name="cvQuizzModif">MODIFIER</string>
     <string name="btn_stat">STAT</string>
+
+    <string name="tvInfoDescript">Moyenne De Réussite : </string>
+    <string name="tvInfoBase">0 % : 0 Bonnes reponses</string>
+    <string name="tvInfoPart1"> % : </string>
+    <string name="tvInfoPart2"> Bonnes reponses </string>
+
     <string name="title_activity_quizz">Quizz</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

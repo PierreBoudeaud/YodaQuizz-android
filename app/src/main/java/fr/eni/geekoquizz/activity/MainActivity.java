@@ -21,10 +21,19 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.text.BreakIterator;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import fr.eni.geekoquizz.R;
 import fr.eni.geekoquizz.adapter.ListQuizzAdapter;
 import fr.eni.geekoquizz.adapter.ModifQuizzAdapter;
+import fr.eni.geekoquizz.bo.Question;
+import fr.eni.geekoquizz.bo.Quizz;
+import fr.eni.geekoquizz.bo.Statistique;
+import fr.eni.geekoquizz.bo.Theme;
+import fr.eni.geekoquizz.bo.Type;
+import fr.eni.geekoquizz.bo.Utilisateur;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -106,10 +115,27 @@ public class MainActivity extends AppCompatActivity
 
     public void switchLayout(int idItem)
     {
-        String[][] infos = {
-                {"-700094","-700095","-700096","Jeux-vidéo années 90","50","2.5f","QCM (1 réponse possible)","-700002","-700002","-700002","-700002","-700002","Valoo22","12/04/2019","Description : Redécouvrez les jeux-vidéo de son age d'or grâce a ce petit quizz développé par mes soins."},
-                {"-700094","-700095","-700096","Jeux-vidéo années 90","50","2.5f","QCM (1 réponse possible)","-700002","-700002","-700002","-700002","-700002","Valoo22","12/04/2019","Description : Redécouvrez les jeux-vidéo de son age d'or grâce a ce petit quizz développé par mes soins."}
-        };
+        Type MonType = new Type("QCM","Que des QCMs","");
+        Utilisateur User = new Utilisateur(1,"Valoo22",new Date());
+
+        //Liste des Themes
+        List<Theme> ListThemes = new ArrayList<>();
+            Theme Theme1 = new Theme("Jeu Vidéo","Description : Jeu Vidéo",String.valueOf(R.drawable.jeux_video));ListThemes.add(Theme1);
+            Theme Theme2 = new Theme("serie_tele","Description : serie_tele",String.valueOf(R.drawable.serie_tele));ListThemes.add(Theme2);
+            Theme Theme3 = new Theme("film","Description : film",String.valueOf(R.drawable.film));ListThemes.add(Theme3);
+            Theme Theme4 = new Theme("anime","Description : anime",String.valueOf(R.drawable.anime));ListThemes.add(Theme4);
+            Theme Theme5 = new Theme("pop_culture","Description : pop_culture",String.valueOf(R.drawable.pop_culture));ListThemes.add(Theme5);
+            Theme Theme6 = new Theme("livre","Description : livre",String.valueOf(R.drawable.livre));ListThemes.add(Theme6);
+
+        List<Quizz> ListQuizz = new ArrayList<>();
+
+            Quizz MonQuizz = new Quizz(5, "Jeux-vidéo années 90",(float)2.6f, new Date(2019, 04, 18), new Date(), "Description : Redécouvrez les jeux-vidéo de son age d'or grâce a ce petit quizz développé par mes soins.", 1, User, null, ListThemes, MonType, null);
+        ListQuizz.add(MonQuizz);
+
+            Quizz MonDeuxiemeQuizz = new Quizz(8, "Série Télé",(float)3.5f, new Date(), new Date(2019, 04, 18), "Description : C'est génial, je suis trop content de faire ça !", 2, User, null, ListThemes, MonType, null);
+        ListQuizz.add(MonDeuxiemeQuizz);
+
+
         RecyclerView recyclerViewQuizz = (RecyclerView) findViewById(R.id.rvQuizz);
         ImageButton btnAddQuizz = (ImageButton)findViewById(R.id.btnAddQuizz);
         recyclerViewQuizz.setHasFixedSize(true);
@@ -121,13 +147,13 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.nav_list_quizz :
                 this.setTitle("Liste des Quizz");
-                RecyclerView.Adapter LisyAdapterQuizz = new ListQuizzAdapter(infos);
+                RecyclerView.Adapter LisyAdapterQuizz = new ListQuizzAdapter(ListQuizz);
                 recyclerViewQuizz.setAdapter(LisyAdapterQuizz);
                 btnAddQuizz.setVisibility(View.GONE);
                 break;
             case R.id.nav_modif_quizz :
                 this.setTitle("Modifier un Quizz");
-                RecyclerView.Adapter ModifAdapterQuizz = new ModifQuizzAdapter(infos);
+                RecyclerView.Adapter ModifAdapterQuizz = new ModifQuizzAdapter(ListQuizz);
                 recyclerViewQuizz.setAdapter(ModifAdapterQuizz);
                 btnAddQuizz.setVisibility(View.VISIBLE);
                 break;
@@ -139,6 +165,4 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
     }
-
-
 }
