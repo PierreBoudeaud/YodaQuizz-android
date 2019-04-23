@@ -4,6 +4,7 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -281,5 +282,11 @@ public class QuizzActivity extends AppCompatActivity {
         TextView tvResultat = findViewById(R.id.tvResultat);
         tvResultat.setText("Votre Score = " + Score);
         Glide.with(this).load("file:///android_asset/imggif.gif").into(imgGif);
+        imgGif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavUtils.navigateUpFromSameTask(QuizzActivity.this);
+            }
+        });
     }
 }
