@@ -109,4 +109,27 @@
     <string name="btn_joker_quizz">Joker</string>
     <string name="btn_valid_quizz">Valider</string>
     <string name="congratulation">Félicitation !!!</string>
+
+    <string name="btnPopUpNext">Suivant.</string>
+    <string name="btnPopUpEnd">Terminé.</string>
+
+    <string name="phraseyoda_1">Boit le café, le talent arrivera.</string>
+    <string name="phraseyoda_2">La surprise n\'est pas quand l\'etonnement n\'est plus.</string>
+    <string name="phraseyoda_3">Dans le coté obscur, délicieux sont les cookies.</string>
+    <string name="phraseyoda_4">J\'ai appris E=MC2, ce jour là.</string>
+    <string name="phraseyoda_5">Dormir tu doit sinon fatigué tu sera.</string>
+    <string name="phraseyoda_6">Le maitre tu ne dépassera jamais.</string>
+    <string name="phraseyoda_7">Te démerder tu devras, sans moi tu joueras.</string>
+    <string name="phraseyoda_8">Grande est ta force, Plus petite que moi quand méme.</string>
+    <string name="phraseyoda_9">Ta torture je prépare, ton silence je m\'empare.</string>
+    <string name="phraseyoda_10">Faire Souffrir mon diciple je ferai.</string>
+    <string name="phraseyoda_11">Dans la lave Skywalker à finis.</string>
+    <string name="phraseyoda_12">Quand 900 ans comme moi tu auras, Moins en forme tu seras.</string>
+    <string name="phraseyoda_13">Ehouer tu as, Mieux faire tu devras.</string>
+    <string name="phraseyoda_14">Pleine de doigts, Mes mains sont.</string>
+    <string name="phraseyoda_15">Intelligent tu n\'est pas, Chanceux tu est.</string>
+
+    <string name="reponseCorrect">Bonne réponse !</string>
+    <string name="reponseWrong">Mauvaise réponse !</string>
+    <string name="reponseTime">Temps écoulé !</string>
 </resources>
