@@ -31,7 +31,7 @@
                 android:value="fr.eni.geekoquizz.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".infostat_Activity"
+            android:name=".activity.InfostatActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".activity.MainActivity">
             <meta-data
