@@ -46,7 +46,7 @@ public class QuizzActivity extends AppCompatActivity {
     private List<Theme> lesThemes = new ArrayList<>();
     private Type unType = new Type();
     private List<Statistique> lesStatistiques = new ArrayList<>();
-    private Quizz unQuizz = new Quizz(0,"Quizz trop bien",new Date(),new Date(), "Petite Quizz de test", 1, unUtilisateur, new ArrayList<Question>(){{add(Question1);add(Question2);}}, lesThemes, unType, lesStatistiques);
+    private Quizz unQuizz = new Quizz(0,"Quizz trop bien",2.5f,new Date(),new Date(), "Petite Quizz de test", 1, unUtilisateur, new ArrayList<Question>(){{add(Question1);add(Question2);}}, lesThemes, unType, lesStatistiques);
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

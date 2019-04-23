@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import fr.eni.geekoquizz.activity.QuizzActivity;
 import fr.eni.geekoquizz.adapter.ListStatAdapter;
 import fr.eni.geekoquizz.bo.Question;
 import fr.eni.geekoquizz.bo.Quizz;
@@ -94,7 +95,8 @@ public class infostat_Activity extends AppCompatActivity {
     }
 
     public void GetBtnPlay(View v) {
-        Toast.makeText(this, "Bouton Jouer", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(v.getContext(), QuizzActivity.class);
+        v.getContext().startActivity(intent);
 
     }
 
