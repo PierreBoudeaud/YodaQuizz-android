@@ -61,7 +61,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:indeterminate="false"
-        android:max="300"
+        android:max="100"
         android:progress="15"
         android:progressTint="@color/design_default_color_primary_dark"
         app:layout_constraintBottom_toTopOf="@+id/btn_joker"

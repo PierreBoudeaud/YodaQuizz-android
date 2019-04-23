@@ -30,6 +30,7 @@ import fr.eni.geekoquizz.adapter.ListQuizzAdapter;
 import fr.eni.geekoquizz.adapter.ModifQuizzAdapter;
 import fr.eni.geekoquizz.bo.Question;
 import fr.eni.geekoquizz.bo.Quizz;
+import fr.eni.geekoquizz.bo.Reponse;
 import fr.eni.geekoquizz.bo.Statistique;
 import fr.eni.geekoquizz.bo.Theme;
 import fr.eni.geekoquizz.bo.Type;
@@ -129,10 +130,16 @@ public class MainActivity extends AppCompatActivity
 
         List<Quizz> ListQuizz = new ArrayList<>();
 
-            Quizz MonQuizz = new Quizz(5, "Jeux-vidéo années 90",(float)2.6f, new Date(2019, 04, 18), new Date(), "Description : Redécouvrez les jeux-vidéo de son age d'or grâce a ce petit quizz développé par mes soins.", 1, User, null, ListThemes, MonType, null);
+        List<Question> ListQuest = new ArrayList<>();
+        List<Reponse> ListReps = new ArrayList<>();
+            ListQuest.add(new Question("Ceci est une question ?",new Date(), new Date(), String.valueOf(R.drawable.quizz1_01), 10, 5, ListReps));
+            ListQuest.add(new Question("Ceci est une question ?",new Date(), new Date(), String.valueOf(R.drawable.quizz1_02), 10, 5, ListReps));
+            ListQuest.add(new Question("Ceci est une question ?",new Date(), new Date(), String.valueOf(R.drawable.quizz1_03), 10, 5, ListReps));
+
+        Quizz MonQuizz = new Quizz(5, "Jeux-vidéo années 90",(float)2.6f, new Date(2019, 04, 18), new Date(), "Description : Redécouvrez les jeux-vidéo de son age d'or grâce a ce petit quizz développé par mes soins.", 1, User, ListQuest, ListThemes, MonType, null);
         ListQuizz.add(MonQuizz);
 
-            Quizz MonDeuxiemeQuizz = new Quizz(8, "Série Télé",(float)3.5f, new Date(), new Date(2019, 04, 18), "Description : C'est génial, je suis trop content de faire ça !", 2, User, null, ListThemes, MonType, null);
+            Quizz MonDeuxiemeQuizz = new Quizz(8, "Série Télé",(float)3.5f, new Date(), new Date(2019, 04, 18), "Description : C'est génial, je suis trop content de faire ça !", 2, User, ListQuest, ListThemes, MonType, null);
         ListQuizz.add(MonDeuxiemeQuizz);
 
 

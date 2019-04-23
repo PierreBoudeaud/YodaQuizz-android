@@ -1,13 +1,16 @@
 package fr.eni.geekoquizz.activity;
 
+import android.app.Dialog;
 import android.content.res.AssetManager;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,6 +22,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import fr.eni.geekoquizz.R;
 import fr.eni.geekoquizz.bo.Question;
@@ -37,7 +41,7 @@ public class QuizzActivity extends AppCompatActivity {
     private Button btnRepA, btnRepB, btnRepC, btnRepD, btnJoker;
     private CountDownTimer timer, timeafterlose, timeafterwin;
     private Boolean isGoodResponse;
-    private int nbCorrectResponse, nbResponseFound, indexQuestion, Score;
+    private int nbCorrectResponse, nbResponseFound, indexQuestion, nbCorrectRep,NbQuestion,points,totalPoints;
     private Reponse RepA1 = new Reponse("Blanc",true),RepB1 = new Reponse("Bleu",false),RepC1 = new Reponse("Rouge",false),RepD1 = new Reponse("Jaune",false);
     private Reponse RepA2 =new Reponse("Valoo", true), RepB2=new Reponse("Pierre", true), RepC2=new Reponse("Antoine", true), RepD2=new Reponse("Luke Skywalker", false);
     private Question Question1 = new Question("Quelle est la couleur du cheval blanc d'Henry IV ?",new Date(),new Date(),"",0,0,  new ArrayList<Reponse>(){{add(RepA1);add(RepB1); add(RepC1); add(RepD1);}});
@@ -62,12 +66,13 @@ public class QuizzActivity extends AppCompatActivity {
         btnRepD = findViewById(R.id.btn_repD);
         btnJoker = findViewById(R.id.btn_joker);
         time = findViewById(R.id.progressBar);
-        timer = new CountDownTimer(30000,100)
+        timer = new CountDownTimer(10000,100)
         {
             @Override
             public void onTick(long millisUntilFinished)
             {
-                time.setProgress(300 - ((int)millisUntilFinished*10/1000));
+                points = ((int)millisUntilFinished*10/1000);
+                time.setProgress(100 - ((int)millisUntilFinished*10/1000));
             }
             @Override
             public void onFinish()
@@ -79,54 +84,147 @@ public class QuizzActivity extends AppCompatActivity {
                 timer.cancel();
                 if(isGoodResponse)
                 {
-                    Toast.makeText(QuizzActivity.this,"Bien joué",Toast.LENGTH_LONG).show();
-                    timeafterwin = new CountDownTimer(3000,1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            if((indexQuestion+1)<=unQuizz.getQuestions().size())
-                            initQuestion(unQuizz.getQuestions().get(indexQuestion),unQuizz.getQuestions().size());
-                            else
-                                onQuizzFinished();
-                        }
-                    }.start();
+                    PopUpInterQuestion(true);
                 }
                 else
                 {
-                    Toast.makeText(QuizzActivity.this,"T'est nul !",Toast.LENGTH_LONG).show();
-                    timeafterlose = new CountDownTimer(3000,1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            if((indexQuestion+1)<=unQuizz.getQuestions().size())
-                            initQuestion(unQuizz.getQuestions().get(indexQuestion),unQuizz.getQuestions().size());
-                            else
-                                onQuizzFinished();
-                        }
-                    }.start();
+                    PopUpInterQuestion(false);
                 }
             }
         };
         initQuizz(unQuizz);
     }
 
+    public void PopUpInterQuestion(boolean Correct){
+        final Dialog dialog = new Dialog(QuizzActivity.this);
+        dialog.setContentView(R.layout.popup_post_question);
+
+
+        ImageView image = (ImageView) dialog.findViewById(R.id.ivYoda);
+        TextView text = (TextView) dialog.findViewById(R.id.tvPhraseYoda);
+
+        int random = new Random().nextInt((15 - 1)+1)+1;
+
+        switch(random){
+            case 1:
+                image.setImageResource(R.drawable.yoda1);
+                text.setText(getString(R.string.phraseyoda_1));
+                break;
+            case 2:
+                image.setImageResource(R.drawable.yoda2);
+                text.setText(getString(R.string.phraseyoda_2));
+                break;
+            case 3:
+                image.setImageResource(R.drawable.yoda3);
+                text.setText(getString(R.string.phraseyoda_3));
+                break;
+            case 4:
+                image.setImageResource(R.drawable.yoda4);
+                text.setText(getString(R.string.phraseyoda_4));
+                break;
+            case 5:
+                image.setImageResource(R.drawable.yoda5);
+                text.setText(getString(R.string.phraseyoda_5));
+                break;
+            case 6:
+                image.setImageResource(R.drawable.yoda6);
+                text.setText(getString(R.string.phraseyoda_6));
+                break;
+            case 7:
+                image.setImageResource(R.drawable.yoda7);
+                text.setText(getString(R.string.phraseyoda_7));
+                break;
+            case 8:
+                image.setImageResource(R.drawable.yoda8);
+                text.setText(getString(R.string.phraseyoda_8));
+                break;
+            case 9:
+                image.setImageResource(R.drawable.yoda9);
+                text.setText(getString(R.string.phraseyoda_9));
+                break;
+            case 10:
+                image.setImageResource(R.drawable.yoda10);
+                text.setText(getString(R.string.phraseyoda_10));
+                break;
+            case 11:
+                image.setImageResource(R.drawable.yoda11);
+                text.setText(getString(R.string.phraseyoda_11));
+                break;
+            case 12:
+                image.setImageResource(R.drawable.yoda12);
+                text.setText(getString(R.string.phraseyoda_12));
+                break;
+            case 13:
+                image.setImageResource(R.drawable.yoda13);
+                text.setText(getString(R.string.phraseyoda_13));
+                break;
+            case 14:
+                image.setImageResource(R.drawable.yoda14);
+                text.setText(getString(R.string.phraseyoda_14));
+                break;
+            case 15:
+                image.setImageResource(R.drawable.yoda15);
+                text.setText(getString(R.string.phraseyoda_15));
+                break;
+        }
+
+
+        TextView text1 = (TextView) dialog.findViewById(R.id.tvReponseRes);
+        //Toast.makeText(this, ""+ points, Toast.LENGTH_SHORT).show();
+        if(points == 0){
+            text1.setText(getString(R.string.reponseTime));
+        }else{
+            if(points <= 20){
+                points = 3;
+            }else{
+                points = points /10;
+            }
+            if(Correct == true){
+                text1.setText(getString(R.string.reponseCorrect));
+            }else{
+                points = 0;
+                text1.setText(getString(R.string.reponseWrong));
+            }
+        }
+        totalPoints += points;
+
+        TextView text2 = (TextView) dialog.findViewById(R.id.tvNbQuestionquizz);
+        text2.setText("Question N°"+ (indexQuestion)+"/"+NbQuestion);
+
+        TextView text3 = (TextView) dialog.findViewById(R.id.tvReponsePts);
+        text3.setText("+ "+points+" Pts");
+
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.btnQuittePopUp2);
+        if((indexQuestion+1)<=unQuizz.getQuestions().size())
+            dialogButton.setText(R.string.btnPopUpNext);
+        else
+            dialogButton.setText(R.string.btnPopUpEnd);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if((indexQuestion+1)<=unQuizz.getQuestions().size())
+                    initQuestion(unQuizz.getQuestions().get(indexQuestion),unQuizz.getQuestions().size());
+                else
+                    onQuizzFinished();
+            }
+        });
+        dialog.show();
+        initQuizz(unQuizz);
+    }
+
     public void initQuizz(Quizz unQuizz)
     {
-        Score = 0;
+        nbCorrectRep = 0;
         indexQuestion = 0;
         initQuestion(unQuizz.getQuestions().get(indexQuestion),unQuizz.getQuestions().size());
     }
 
     public void initQuestion(Question puneQuestion, int nbQuestion)
     {
+        NbQuestion = nbQuestion;
         btnRepA.setClickable(true);
         btnRepB.setClickable(true);
         btnRepC.setClickable(true);
@@ -156,7 +254,7 @@ public class QuizzActivity extends AppCompatActivity {
             {
                 btnRepA.setBackgroundResource(R.drawable.btn_background_question_good);
                 isGoodResponse = true;
-                Score = Score + 1;
+                nbCorrectRep = nbCorrectRep + 1;
                 timer.onFinish();
             }
             else
@@ -166,7 +264,7 @@ public class QuizzActivity extends AppCompatActivity {
                 if(nbResponseFound == nbCorrectResponse)
                 {
                     isGoodResponse = true;
-                    Score = Score + 1;
+                    nbCorrectRep = nbCorrectRep + 1;
                     timer.onFinish();
                 }
             }
@@ -186,7 +284,7 @@ public class QuizzActivity extends AppCompatActivity {
             {
                 btnRepB.setBackgroundResource(R.drawable.btn_background_question_good);
                 isGoodResponse = true;
-                Score = Score + 1;
+                nbCorrectRep = nbCorrectRep + 1;
                 timer.onFinish();
             }
             else
@@ -196,7 +294,7 @@ public class QuizzActivity extends AppCompatActivity {
                 if(nbResponseFound == nbCorrectResponse)
                 {
                     isGoodResponse = true;
-                    Score = Score + 1;
+                    nbCorrectRep = nbCorrectRep + 1;
                     timer.onFinish();
                 }
             }
@@ -216,7 +314,7 @@ public class QuizzActivity extends AppCompatActivity {
             {
                 btnRepC.setBackgroundResource(R.drawable.btn_background_question_good);
                 isGoodResponse = true;
-                Score = Score + 1;
+                nbCorrectRep = nbCorrectRep + 1;
                 timer.onFinish();
             }
             else
@@ -226,7 +324,7 @@ public class QuizzActivity extends AppCompatActivity {
                 if(nbResponseFound == nbCorrectResponse)
                 {
                     isGoodResponse = true;
-                    Score = Score + 1;
+                    nbCorrectRep = nbCorrectRep + 1;
                     timer.onFinish();
                 }
             }
@@ -246,7 +344,7 @@ public class QuizzActivity extends AppCompatActivity {
             {
                 btnRepD.setBackgroundResource(R.drawable.btn_background_question_good);
                 isGoodResponse = true;
-                Score = Score + 1;
+                nbCorrectRep = nbCorrectRep + 1;
                 timer.onFinish();
             }
             else
@@ -256,7 +354,7 @@ public class QuizzActivity extends AppCompatActivity {
                 if(nbResponseFound == nbCorrectResponse)
                 {
                     isGoodResponse = true;
-                    Score = Score + 1;
+                    nbCorrectRep = nbCorrectRep + 1;
                     timer.onFinish();
                 }
             }
@@ -280,7 +378,9 @@ public class QuizzActivity extends AppCompatActivity {
         setContentView(R.layout.quizz_finish);
         ImageView imgGif = findViewById(R.id.ivGif);
         TextView tvResultat = findViewById(R.id.tvResultat);
-        tvResultat.setText("Votre Score = " + Score);
+        tvResultat.setText("Nombre de bonnes reponses : " + nbCorrectRep +" / "+NbQuestion);
+        TextView tvResultatPts = findViewById(R.id.tvResultatPts);
+        tvResultatPts.setText("Score : " + totalPoints);
         Glide.with(this).load("file:///android_asset/imggif.gif").into(imgGif);
         imgGif.setOnClickListener(new View.OnClickListener() {
             @Override
