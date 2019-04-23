@@ -119,20 +119,14 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         viewHolder.btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), QuizzActivity.class);
-                v.getContext().startActivity(intent);
+                getBtn(1,v,idQuizz);
+
             }
         });
 
         viewHolder.btnStat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                getBtn(1,v,idQuizz);
-            }
-        });
-        viewHolder.btnInfoMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 getBtn(2,v,idQuizz);
             }
         });
@@ -157,12 +151,13 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
     public void getBtn(int id,View view,int idQuizz){
         switch (id){
             case 1:
-                Toast.makeText(view.getContext(), "Nan , il est pas encore temps", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(view.getContext(), QuizzActivity.class);
+                view.getContext().startActivity(intent);
                 break;
             case 2:
-                Intent intent = new Intent(view.getContext(), infostat_Activity.class);
-                intent.putExtra("IdQuizz",idQuizz);
-                view.getContext().startActivity(intent);
+                Intent intent1 = new Intent(view.getContext(), infostat_Activity.class);
+                intent1.putExtra("IdQuizz",idQuizz);
+                view.getContext().startActivity(intent1);
                 break;
         }
     }
