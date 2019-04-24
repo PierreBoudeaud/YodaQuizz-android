@@ -1,15 +1,25 @@
 package fr.eni.geekoquizz.bo;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity(tableName = "Types")
 public class Type implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "type_id")
     private int id;
 
+    @ColumnInfo(name = "type_nom")
     private String nom;
 
+    @ColumnInfo(name = "type_description")
     private String description;
 
+    @ColumnInfo(name = "type_icon")
     private String icon;
 
     public Type() {

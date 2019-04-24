@@ -1,21 +1,45 @@
 package fr.eni.geekoquizz.bo;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
+
 import java.io.Serializable;
 import java.util.Date;
 
+import fr.eni.geekoquizz.tools.TimestampConverter;
+
+@Entity(tableName = "Statistiques")
 public class Statistique implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "statistique_id")
     private int id;
 
+    @TypeConverters({TimestampConverter.class})
+    @ColumnInfo(name = "statistique_nom")
     private Date date;
 
+    @ColumnInfo(name = "statistique_nbPoints")
     private int nbPoints;
 
+    @ColumnInfo(name = "statistique_nbCorrect")
     private int nbCorrect;
 
+    @Ignore
     private Quizz quizz;
 
+    @ColumnInfo(name = "statistique_quizzId")
+    private int quizzId;
+
+    @Ignore
     private Utilisateur joueur;
+
+    @ColumnInfo(name = "statistique_joueurId")
+    private int joueurId;
 
     public Statistique() {
     }
@@ -83,6 +107,22 @@ public class Statistique implements Serializable {
 
     public void setJoueur(Utilisateur joueur) {
         this.joueur = joueur;
+    }
+
+    public int getJoueurId() {
+        return joueurId;
+    }
+
+    public void setJoueurId(int joueurId) {
+        this.joueurId = joueurId;
+    }
+
+    public int getQuizzId() {
+        return quizzId;
+    }
+
+    public void setQuizzId(int quizzId) {
+        this.quizzId = quizzId;
     }
 
     @Override

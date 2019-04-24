@@ -1,17 +1,33 @@
 package fr.eni.geekoquizz.bo;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.Relation;
+import android.arch.persistence.room.TypeConverters;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import fr.eni.geekoquizz.tools.TimestampConverter;
+
+@Entity(tableName = "Utilisateurs")
 public class Utilisateur implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "utilisateur_id")
     private int id;
 
+    @ColumnInfo(name = "utilisateur_nom")
     private String nom;
 
+    @TypeConverters({TimestampConverter.class})
+    @ColumnInfo(name = "utilisateur_date")
     private Date date;
 
+    @Ignore
     private List<Statistique> statistiques;
 
     public Utilisateur() {

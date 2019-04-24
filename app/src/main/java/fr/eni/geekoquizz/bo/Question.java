@@ -1,30 +1,60 @@
 package fr.eni.geekoquizz.bo;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.Relation;
+import android.arch.persistence.room.TypeConverters;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import fr.eni.geekoquizz.tools.TimestampConverter;
+
+@Entity(tableName = "Questions", foreignKeys = {
+        @ForeignKey(entity = Quizz.class, childColumns = "question_quizzId", parentColumns = "quizz_id")
+})
 public class Question implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "question_id")
     private int id;
 
+    @ColumnInfo(name = "question_intitule")
     private String intitule;
 
+    @TypeConverters({TimestampConverter.class})
+    @ColumnInfo(name = "question_dateCrea")
     private Date dateCrea;
 
+    @TypeConverters({TimestampConverter.class})
+    @ColumnInfo(name = "question_dateModif")
     private Date dateModif;
 
+    @ColumnInfo(name = "question_image")
     private String image;
 
+    @ColumnInfo(name = "question_nbUse")
     private int nbUse;
 
+    @ColumnInfo(name = "question_nbCorrectUse")
     private int nbCorrectUse;
 
+    @ColumnInfo(name = "question_temps")
     private int temps;
 
+    @Ignore
     private List<Reponse> reponses;
 
+    @Ignore
     private Quizz quizz;
+
+    @ColumnInfo(name = "question_quizzId")
+    private int quizzId;
 
     public Question() {
         this.dateCrea = new Date();
@@ -143,6 +173,14 @@ public class Question implements Serializable {
 
     public void setQuizz(Quizz quizz) {
         this.quizz = quizz;
+    }
+
+    public int getQuizzId() {
+        return quizzId;
+    }
+
+    public void setQuizzId(int quizzId) {
+        this.quizzId = quizzId;
     }
 
     public boolean hasMultipleResponses() {
