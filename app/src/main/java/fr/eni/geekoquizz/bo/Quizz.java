@@ -224,7 +224,7 @@ public class Quizz implements Serializable {
     }
 
     public void addTheme(Theme theme) {
-        this.themes.add(new QuizzTheme(id, theme.getId()));
+        this.themes.add(new QuizzTheme(this, theme));
     }
 
     @Override

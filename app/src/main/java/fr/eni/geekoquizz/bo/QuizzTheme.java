@@ -14,20 +14,31 @@ foreignKeys = {
         @ForeignKey(entity = Theme.class, parentColumns = "theme_id", childColumns = "themeId")
 })
 public class QuizzTheme {
-    private final int quizzId;
+    private int quizzId;
     @Ignore
-    private final Quizz quizz;
+    private Quizz quizz;
 
-    public final int themeId;
+    public int themeId;
 
     @Ignore
-    private final Theme theme;
+    private Theme theme;
+
+
 
     public QuizzTheme(final Quizz quizz, final Theme theme) {
         this.quizz = quizz;
         this.quizzId = quizz.getId();
         this.theme = theme;
         this.themeId = theme.getId();
+    }
+
+    public QuizzTheme(int quizzId, int themeId) {
+        this.quizz = new Quizz();
+        this.quizz.setId(quizzId);
+        this.quizzId = quizzId;
+        this.theme = new Theme();
+        this.theme.setId(themeId);
+        this.themeId = themeId;
     }
 
     public static void createListTheme(final Quizz quizz, final List<Theme> themes) {
@@ -42,5 +53,21 @@ public class QuizzTheme {
 
     public int getThemeId() {
         return themeId;
+    }
+
+    public Quizz getQuizz() {
+        return quizz;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setQuizzId(int quizzId) {
+        this.quizzId = quizzId;
+    }
+
+    public void setThemeId(int themeId) {
+        this.themeId = themeId;
     }
 }
