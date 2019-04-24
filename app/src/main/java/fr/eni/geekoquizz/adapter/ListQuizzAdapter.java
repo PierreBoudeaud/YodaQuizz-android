@@ -1,9 +1,14 @@
 package fr.eni.geekoquizz.adapter;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,26 +17,37 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import fr.eni.geekoquizz.R;
+import fr.eni.geekoquizz.activity.MainActivity;
 import fr.eni.geekoquizz.bo.Quizz;
 import fr.eni.geekoquizz.activity.InfostatActivity;
 import fr.eni.geekoquizz.activity.QuizzActivity;
+import fr.eni.geekoquizz.bo.Theme;
 
 public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.ViewHolder>
 {
     //Permet de stocker les données à afficher.
     private List<Quizz> mDataset = new ArrayList<Quizz>();
 
+    private static Integer[] TabId = {R.id.ivTheme1,R.id.ivTheme2,R.id.ivTheme3,R.id.ivTheme4,R.id.ivTheme5,R.id.ivTheme6};
+
+    private static List<ImageButton> ListImageButton = new ArrayList<>();
+
+    private static List<List<ImageButton>> ListImageButtonQuizz = new ArrayList<>();
+
+    private static List<List<Theme>> ListTheme = new ArrayList<>();
+
     // Fournit une référence aux vues pour chaque élément de données
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         // Chaque élément contient seulement une TextView
-        public ImageView ivPhoto1,ivPhoto2,ivPhoto3,ivTheme1,ivTheme2,ivTheme3,ivTheme4,ivTheme5,ivTheme6;
+        public ImageView ivPhoto1,ivPhoto2,ivPhoto3;
 
         public TextView tvTitre, tvNbQuestion, tvType, tvAuteur, tvDate, tvDecription;
 
@@ -49,12 +65,6 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
             ivPhoto1 = v.findViewById(R.id.ivPhoto1);
             ivPhoto2 = v.findViewById(R.id.ivPhoto2);
             ivPhoto3 = v.findViewById(R.id.ivPhoto3);
-            ivTheme1 = v.findViewById(R.id.ivTheme);
-            ivTheme2 = v.findViewById(R.id.ivTheme1);
-            ivTheme3 = v.findViewById(R.id.ivTheme2);
-            ivTheme4 = v.findViewById(R.id.ivTheme3);
-            ivTheme5 = v.findViewById(R.id.ivTheme4);
-            ivTheme6 = v.findViewById(R.id.ivTheme5);
             tvTitre = v.findViewById(R.id.tvTitreQuizz);
             tvAuteur = v.findViewById(R.id.tvAuteur);
             tvDate = v.findViewById(R.id.tvDate);
@@ -66,6 +76,11 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
             btnStat = v.findViewById(R.id.btnStatQuizz);
             btnCollapse = v.findViewById(R.id.btnColapse);
             cvDetailQuizz = v.findViewById(R.id.cvDetail);
+
+            for(int a = 0; a < TabId.length;a++){
+                ListImageButton.add((ImageButton) v.findViewById(TabId[a]));
+            }
+
         }
         @Override
         public void onClick(View view) {
@@ -90,7 +105,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ListQuizzAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final int idQuizz =  mDataset.get(i).getId();
         viewHolder.ivPhoto1.setImageResource(R.drawable.quizz1_01);
         viewHolder.ivPhoto2.setImageResource(R.drawable.quizz1_02);
@@ -99,18 +114,34 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         viewHolder.tvNbQuestion.setText(String.valueOf(59/*mDataset.get(i).getQuestions().size()*/));
         viewHolder.rbDifficult.setRating(mDataset.get(i).getDifficulte());
         viewHolder.tvType.setText(mDataset.get(i).getType().getNom());
-        viewHolder.ivTheme1.setImageResource(Integer.valueOf(mDataset.get(i).getThemes().get(0).getIcon()));
-        viewHolder.ivTheme2.setImageResource(Integer.valueOf(mDataset.get(i).getThemes().get(1).getIcon()));
-        viewHolder.ivTheme3.setImageResource(Integer.valueOf(mDataset.get(i).getThemes().get(2).getIcon()));
-        viewHolder.ivTheme4.setImageResource(Integer.valueOf(mDataset.get(i).getThemes().get(3).getIcon()));
-        viewHolder.ivTheme5.setImageResource(Integer.valueOf(mDataset.get(i).getThemes().get(4).getIcon()));
-        viewHolder.ivTheme6.setImageResource(Integer.valueOf(mDataset.get(i).getThemes().get(5).getIcon()));
         viewHolder.tvAuteur.setText(mDataset.get(i).getCreateur().getNom());
+
+
+        if(mDataset.get(i).getThemes().size() != 0){
+            List<Theme> MaListeThe = new ArrayList<>();
+            List<ImageButton> MaListeImg = new ArrayList<>();
+            for(int b = 0; b < mDataset.get(i).getThemes().size();b++){
+                for(int a = 0; a < ListImageButton.size();a++) {
+                    if(ListTheme.size() < 6){
+                        if(ListImageButton.get(a).getTag().toString().equals(mDataset.get(i).getThemes().get(b).getIcon())){
+                            ListImageButton.get(a).setVisibility(View.VISIBLE);
+                            MaListeThe.add(mDataset.get(i).getThemes().get(b));
+                            MaListeImg.add(ListImageButton.get(a));
+                        }
+                    }else{
+                        break;
+                    }
+                }
+            }
+            ListImageButtonQuizz.add(MaListeImg);
+            ListTheme.add(MaListeThe);
+        }
+
         String MaDate;
-        if(new android.text.format.DateFormat().format("yyyy-MM-dd", new Date()).equals(new android.text.format.DateFormat().format("yyyy-MM-dd", mDataset.get(i).getDateCrea()))){
-            MaDate = (String)new android.text.format.DateFormat().format("HH:mm", mDataset.get(i).getDateCrea());
+        if(new DateFormat().format("yyyy-MM-dd", new Date()).equals(new DateFormat().format("yyyy-MM-dd", mDataset.get(i).getDateCrea()))){
+            MaDate = (String)new DateFormat().format("HH:mm", mDataset.get(i).getDateCrea());
         }else{
-            MaDate = (String)new android.text.format.DateFormat().format("dd/MM/yy", mDataset.get(i).getDateCrea());
+            MaDate = (String)new DateFormat().format("dd/MM/yy", mDataset.get(i).getDateCrea());
         }
         viewHolder.tvDate.setText(MaDate);
         viewHolder.tvDecription.setText(mDataset.get(i).getDescription());
@@ -145,6 +176,33 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
                 }
             }
         });
+
+        for(int a = 0; a < ListImageButtonQuizz.get(i).size();a++){
+            final int id = i,NumThe = a;
+            ListImageButtonQuizz.get(i).get(a).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    GetDescriptTheme(v,ListImageButtonQuizz.get(id).get(NumThe).getDrawable(),ListTheme.get(id).get(NumThe));
+                }
+            });
+        }
+    }
+
+    public void GetDescriptTheme(View view, Drawable Draw, Theme MonTheme){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setCancelable(true);
+        builder.setTitle(MonTheme.getNom());
+        builder.setIcon(Draw);
+        builder.setMessage(MonTheme.getDescription());
+        builder.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void getBtn(int id,View view,int idQuizz){

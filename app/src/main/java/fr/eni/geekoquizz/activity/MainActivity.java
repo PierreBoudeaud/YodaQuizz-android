@@ -121,12 +121,16 @@ public class MainActivity extends AppCompatActivity
 
         //Liste des Themes
         List<Theme> ListThemes = new ArrayList<>();
-            Theme Theme1 = new Theme("Jeu Vidéo","Description : Jeu Vidéo",String.valueOf(R.drawable.jeux_video));ListThemes.add(Theme1);
-            Theme Theme2 = new Theme("serie_tele","Description : serie_tele",String.valueOf(R.drawable.serie_tele));ListThemes.add(Theme2);
-            Theme Theme3 = new Theme("film","Description : film",String.valueOf(R.drawable.film));ListThemes.add(Theme3);
-            Theme Theme4 = new Theme("anime","Description : anime",String.valueOf(R.drawable.anime));ListThemes.add(Theme4);
-            Theme Theme5 = new Theme("pop_culture","Description : pop_culture",String.valueOf(R.drawable.pop_culture));ListThemes.add(Theme5);
-            Theme Theme6 = new Theme("livre","Description : livre",String.valueOf(R.drawable.livre));ListThemes.add(Theme6);
+            Theme Theme1 = new Theme("anime","Description : anime","anime");ListThemes.add(Theme1);
+            Theme Theme2 = new Theme("Bande Déssinée","Description : Bande Déssinée","BD");ListThemes.add(Theme2);//sans icon
+            //Theme Theme3 = new Theme("film","Description : film","film");ListThemes.add(Theme3);
+            //Theme Theme4 = new Theme("Jeu Vidéo","Description : Jeu Vidéo","jeux_video");ListThemes.add(Theme4);
+            Theme Theme5 = new Theme("livre","Description : livre","livre");ListThemes.add(Theme5);
+            Theme Theme6 = new Theme("Musique","Description : Musique","musique");ListThemes.add(Theme6);//sans icon
+            Theme Theme7 = new Theme("Personnage","Description : Personnage","perso");ListThemes.add(Theme7);//sans icon
+            Theme Theme8 = new Theme("pop_culture","Description : pop_culture","pop_culture");ListThemes.add(Theme8);
+            Theme Theme9 = new Theme("Science Fiction","Description : Science Fiction","sf");ListThemes.add(Theme9);//sans icon
+            Theme Theme10 = new Theme("Série télé","Description : Série télé","serie_tele");ListThemes.add(Theme10);
 
         List<Quizz> ListQuizz = new ArrayList<>();
 
@@ -138,6 +142,9 @@ public class MainActivity extends AppCompatActivity
 
         Quizz MonQuizz = new Quizz(5, "Jeux-vidéo années 90",(float)2.6f, new Date(2019, 04, 18), new Date(), "Description : Redécouvrez les jeux-vidéo de son age d'or grâce a ce petit quizz développé par mes soins.", 1, User, ListQuest, ListThemes, MonType, null);
         ListQuizz.add(MonQuizz);
+
+        ListThemes = new ArrayList<>();
+            Theme Theme11 = new Theme("anime","Description : anime","anime");ListThemes.add(Theme11);
 
             Quizz MonDeuxiemeQuizz = new Quizz(8, "Série Télé",(float)3.5f, new Date(), new Date(2019, 04, 18), "Description : C'est génial, je suis trop content de faire ça !", 2, User, ListQuest, ListThemes, MonType, null);
         ListQuizz.add(MonDeuxiemeQuizz);

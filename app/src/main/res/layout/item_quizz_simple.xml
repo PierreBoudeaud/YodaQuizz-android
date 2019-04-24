@@ -222,7 +222,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -257,11 +257,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="@string/cvQuizzDetailTo"
                 app:layout_constraintBottom_toTopOf="@+id/tvDescription"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2" />
 
             <TextView
                 android:id="@+id/tvDescription"
@@ -294,35 +296,41 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="*Auteur*"
                 app:layout_constraintBottom_toTopOf="@+id/tvDescription"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
-                app:layout_constraintStart_toEndOf="@+id/tvText4" />
+                app:layout_constraintStart_toEndOf="@+id/tvText4"
+                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2" />
 
             <TextView
                 android:id="@+id/tvText5"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/cvQuizzDetailThe"
                 app:layout_constraintBottom_toTopOf="@+id/tvDescription"
-                app:layout_constraintStart_toStartOf="@+id/guideline" />
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2" />
 
             <TextView
                 android:id="@+id/tvDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="*25/10/2019*"
                 app:layout_constraintBottom_toTopOf="@+id/tvDescription"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tvText5" />
+                app:layout_constraintStart_toEndOf="@+id/tvText5"
+                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline"
@@ -331,77 +339,108 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="189dp" />
 
-            <ImageView
-                android:id="@+id/ivTheme1"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvAuteur"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/tvText3"
-                app:layout_constraintTop_toBottomOf="@+id/tvType"
-                app:srcCompat="@drawable/film" />
+                app:layout_constraintTop_toBottomOf="@+id/tvType">
 
-            <ImageView
-                android:id="@+id/ivTheme2"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvAuteur"
-                app:layout_constraintStart_toEndOf="@+id/ivTheme1"
-                app:layout_constraintTop_toBottomOf="@+id/tvType"
-                app:srcCompat="@drawable/jeux_video" />
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/ivTheme3"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvAuteur"
-                app:layout_constraintStart_toEndOf="@+id/ivTheme2"
-                app:layout_constraintTop_toBottomOf="@+id/tvType"
-                app:srcCompat="@drawable/livre" />
+                    <ImageButton
+                        android:id="@+id/ivTheme1"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:tag="film"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/film" />
 
-            <ImageView
-                android:id="@+id/ivTheme4"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvAuteur"
-                app:layout_constraintStart_toEndOf="@+id/ivTheme3"
-                app:layout_constraintTop_toBottomOf="@+id/tvType"
-                app:srcCompat="@drawable/pop_culture" />
+                    <ImageButton
+                        android:id="@+id/ivTheme2"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:tag="jeux_video"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivTheme1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/jeux_video" />
 
-            <ImageView
-                android:id="@+id/ivTheme5"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvAuteur"
-                app:layout_constraintStart_toEndOf="@+id/ivTheme4"
-                app:layout_constraintTop_toBottomOf="@+id/tvType"
-                app:srcCompat="@drawable/serie_tele" />
+                    <ImageButton
+                        android:id="@+id/ivTheme3"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:tag="livre"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivTheme2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/livre" />
 
-            <ImageView
-                android:id="@+id/ivTheme"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvAuteur"
-                app:layout_constraintStart_toEndOf="@+id/ivTheme5"
-                app:layout_constraintTop_toBottomOf="@+id/tvType"
-                app:srcCompat="@drawable/anime" />
+                    <ImageButton
+                        android:id="@+id/ivTheme4"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:tag="pop_culture"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivTheme3"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/pop_culture" />
+
+                    <ImageButton
+                        android:id="@+id/ivTheme5"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:tag="serie_tele"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivTheme4"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/serie_tele" />
+
+                    <ImageButton
+                        android:id="@+id/ivTheme6"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:tag="anime"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivTheme5"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/anime" />
+                </android.support.constraint.ConstraintLayout>
+            </HorizontalScrollView>
 
         </android.support.constraint.ConstraintLayout>
 
