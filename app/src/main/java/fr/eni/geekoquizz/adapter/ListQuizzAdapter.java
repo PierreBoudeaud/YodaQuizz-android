@@ -25,7 +25,7 @@ import fr.eni.geekoquizz.activity.QuizzActivity;
 public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.ViewHolder>
 {
     //Permet de stocker les données à afficher.
-    private List<Quizz> mDataset = new ArrayList<Quizz>();
+    private List<Quizz> mDataset;
 
     // Fournit une référence aux vues pour chaque élément de données
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener

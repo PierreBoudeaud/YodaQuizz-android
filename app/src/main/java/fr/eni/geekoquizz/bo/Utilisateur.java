@@ -8,6 +8,7 @@ import android.arch.persistence.room.Relation;
 import android.arch.persistence.room.TypeConverters;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class Utilisateur implements Serializable {
         this(nom);
         this.id = id;
         this.date = date;
+        this.statistiques =  new ArrayList<>();
     }
 
     public int getId() {

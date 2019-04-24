@@ -38,6 +38,7 @@ public class Quizz implements Serializable {
         this.version = 0;
         this.dateCrea = new Date();
         this.dateModif = new Date();
+        statistiques = new ArrayList<>();
     }
 
     public Quizz(String nom, String description) {
@@ -186,13 +187,8 @@ public class Quizz implements Serializable {
         {
             lesQuestions.add(uneQuestion.toQuestion());
         }
-        List<fr.eni.geekoquizz.bo.Statistique> lesStatistiques = new ArrayList<>();
-        for(Statistique uneStatistique : getStatistiques())
-        {
-            lesStatistiques.add(uneStatistique.toStatistique());
-        }
         return new fr.eni.geekoquizz.bo.Quizz(
-               getId(), getNom(),getDifficulte(),getDateCrea(), getDateModif(), getDescription(), getVersion(), getCreateur().toUtilisateur(), lesQuestions, lesThemes, getType().toType(),lesStatistiques
+               getId(), getNom(),getDifficulte(),getDateCrea(), getDateModif(), getDescription(), getVersion(), getCreateur().toUtilisateur(), lesQuestions, lesThemes, getType().toType(),new ArrayList<fr.eni.geekoquizz.bo.Statistique>()
         );
     }
 
