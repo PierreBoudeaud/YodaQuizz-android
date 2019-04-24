@@ -98,8 +98,7 @@ public class QuizzActivity extends AppCompatActivity {
     public void PopUpInterQuestion(boolean Correct){
         final Dialog dialog = new Dialog(QuizzActivity.this);
         dialog.setContentView(R.layout.popup_post_question);
-
-
+        dialog.setCancelable(false);
         ImageView image = (ImageView) dialog.findViewById(R.id.ivYoda);
         TextView text = (TextView) dialog.findViewById(R.id.tvPhraseYoda);
 
@@ -212,7 +211,6 @@ public class QuizzActivity extends AppCompatActivity {
             }
         });
         dialog.show();
-        initQuizz(unQuizz);
     }
 
     public void initQuizz(Quizz unQuizz)
