@@ -90,7 +90,7 @@ public class Quizz implements Serializable {
         this.statistiques = statistiques;
     }
 
-    public Quizz(int id, String nom, float difficulte ,Date dateCrea, Date dateModif, String description, int version, Utilisateur createur, List<QuizzTheme> themes, Type type) {
+    public Quizz(int id, String nom, float difficulte ,Date dateCrea, Date dateModif, String description, int version, Utilisateur utilisateur, List<QuizzTheme> themes, Type type) {
         this(nom, description,difficulte);
         this.id = id;
         this.dateCrea = dateCrea;
@@ -98,9 +98,11 @@ public class Quizz implements Serializable {
         this.version = version;
         this.themes = themes;
         this.type = type;
+        this.utilisateur = utilisateur;
+        this.utilisateurId = utilisateur.getId();
     }
 
-    public Quizz(int id, String nom, float difficulte ,Date dateCrea, Date dateModif, String description, int version, Utilisateur createur, List<Question> questions, List<Theme> themes, Type type, List<Statistique> statistiques) {
+    public Quizz(int id, String nom, float difficulte ,Date dateCrea, Date dateModif, String description, int version, Utilisateur utilisateur, List<Question> questions, List<Theme> themes, Type type, List<Statistique> statistiques) {
         this(nom, description,difficulte);
         this.id = id;
         this.dateCrea = dateCrea;
@@ -109,6 +111,9 @@ public class Quizz implements Serializable {
         this.questions = questions;
         this.type = type;
         this.statistiques = statistiques;
+        convertTheme(themes);
+        this.utilisateur = utilisateur;
+        this.utilisateurId = utilisateur.getId();
     }
 
     public int getId() {
@@ -225,6 +230,13 @@ public class Quizz implements Serializable {
 
     public void addTheme(Theme theme) {
         this.themes.add(new QuizzTheme(this, theme));
+    }
+
+    public void convertTheme(List<Theme> themes) {
+        for (Theme theme :
+                themes) {
+            addTheme(theme);
+        }
     }
 
     @Override
