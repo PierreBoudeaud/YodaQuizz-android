@@ -56,7 +56,7 @@ public class InfoFragment extends Fragment {
         if(MonQuizz.getThemes().size() != 0){
             for(int i = 0; i < ListImageView.size();i++){
                 ListImageView.get(i).setVisibility(View.VISIBLE);
-                ListImageView.get(i).setImageResource(Integer.valueOf(MonQuizz.getThemes().get(i).getIcon()));
+                ListImageView.get(i).setImageResource(Integer.valueOf(MonQuizz.getThemes().get(i).getTheme().getIcon()));
             }
         }
         int MoyCorrect = 0,MoyPercent = 0;
@@ -84,7 +84,7 @@ public class InfoFragment extends Fragment {
 
         tvNbQuestion.setText(       String.valueOf(NbQuestion));
         tvType.setText(             MonQuizz.getType().getNom());
-        tvAuteur.setText(           MonQuizz.getCreateur().getNom());
+        tvAuteur.setText(           MonQuizz.getUtilisateur().getNom());
         String MaDate;
         if(new android.text.format.DateFormat().format("yyyy-MM-dd", new Date()).equals(new android.text.format.DateFormat().format("yyyy-MM-dd", MonQuizz.getDateModif()))){
             MaDate = (String)new android.text.format.DateFormat().format("HH:mm", MonQuizz.getDateModif());

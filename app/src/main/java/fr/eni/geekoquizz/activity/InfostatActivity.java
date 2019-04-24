@@ -129,9 +129,9 @@ public class InfostatActivity extends AppCompatActivity {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setCancelable(true);
-        builder.setTitle(MonQuizz.getThemes().get(IdTheme).getNom());
-        builder.setIcon(Integer.valueOf(MonQuizz.getThemes().get(IdTheme).getIcon()));
-        builder.setMessage(MonQuizz.getThemes().get(IdTheme).getDescription());
+        builder.setTitle(MonQuizz.getThemes().get(IdTheme).getTheme().getNom());
+        builder.setIcon(Integer.valueOf(MonQuizz.getThemes().get(IdTheme).getTheme().getIcon()));
+        builder.setMessage(MonQuizz.getThemes().get(IdTheme).getTheme().getDescription());
         builder.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
