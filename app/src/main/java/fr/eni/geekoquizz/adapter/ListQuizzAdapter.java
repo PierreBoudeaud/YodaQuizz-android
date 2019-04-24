@@ -114,7 +114,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         viewHolder.tvNbQuestion.setText(String.valueOf(59/*mDataset.get(i).getQuestions().size()*/));
         viewHolder.rbDifficult.setRating(mDataset.get(i).getDifficulte());
         viewHolder.tvType.setText(mDataset.get(i).getType().getNom());
-        viewHolder.tvAuteur.setText(mDataset.get(i).getCreateur().getNom());
+        viewHolder.tvAuteur.setText(mDataset.get(i).getUtilisateur().getNom());
 
 
         if(mDataset.get(i).getThemes().size() != 0){
@@ -123,9 +123,9 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
             for(int b = 0; b < mDataset.get(i).getThemes().size();b++){
                 for(int a = 0; a < ListImageButton.size();a++) {
                     if(ListTheme.size() < 6){
-                        if(ListImageButton.get(a).getTag().toString().equals(mDataset.get(i).getThemes().get(b).getIcon())){
+                        if(ListImageButton.get(a).getTag().toString().equals(mDataset.get(i).getThemes().get(b).getTheme().getIcon())){
                             ListImageButton.get(a).setVisibility(View.VISIBLE);
-                            MaListeThe.add(mDataset.get(i).getThemes().get(b));
+                            MaListeThe.add(mDataset.get(i).getThemes().get(b).getTheme());
                             MaListeImg.add(ListImageButton.get(a));
                         }
                     }else{
