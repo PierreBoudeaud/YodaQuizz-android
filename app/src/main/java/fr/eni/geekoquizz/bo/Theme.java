@@ -1,15 +1,25 @@
 package fr.eni.geekoquizz.bo;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity(tableName = "Themes")
 public class Theme implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "theme_id")
     private int id;
 
+    @ColumnInfo(name = "theme_nom")
     private String nom;
 
+    @ColumnInfo(name = "theme_description")
     private String description;
 
+    @ColumnInfo(name = "theme_icon")
     private String icon;
 
     public Theme() {
