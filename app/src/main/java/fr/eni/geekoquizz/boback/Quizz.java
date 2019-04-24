@@ -5,7 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
+
+import fr.eni.geekoquizz.tools.Random;
 
 public class Quizz implements Serializable {
 
@@ -161,18 +162,13 @@ public class Quizz implements Serializable {
         List<String> result = new ArrayList<>();
         int nbImage = this.questions.size() > 5 ? 5 : this.questions.size();
         while(result.size() < nbImage) {
-            int num = generateRandomIntIntRange(questions.size()-1);
+            int num = Random.generate(questions.size()-1);
             if(result.indexOf(questions.get(num).getImage()) == -1) {
                 result.add(this.questions.get(num).getImage());
             }
         }
 
         return result;
-    }
-
-    private static int generateRandomIntIntRange(int max) {
-        Random r = new Random();
-        return r.nextInt((max - 0) + 1) + 0;
     }
 
     public fr.eni.geekoquizz.bo.Quizz toQuizz()

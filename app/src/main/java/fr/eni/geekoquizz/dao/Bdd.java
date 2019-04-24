@@ -29,6 +29,7 @@ public abstract class Bdd extends RoomDatabase {
     public abstract QuestionDAO questionDAO();
     public abstract ThemeDAO themeDAO();
     public abstract TypeDAO typeDAO();
+    public abstract ReponseDAO reponseDAO();
 
     public static synchronized Bdd getInstance(Context context) {
         if (INSTANCE == null) {
