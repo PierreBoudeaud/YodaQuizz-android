@@ -35,9 +35,11 @@ import fr.eni.geekoquizz.bo.Statistique;
 import fr.eni.geekoquizz.bo.Theme;
 import fr.eni.geekoquizz.bo.Type;
 import fr.eni.geekoquizz.bo.Utilisateur;
+import fr.eni.geekoquizz.service.ImportQuizz;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static List<Quizz> lesQuizz = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,13 +156,13 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.nav_list_quizz :
                 this.setTitle("Liste des Quizz");
-                RecyclerView.Adapter LisyAdapterQuizz = new ListQuizzAdapter(ListQuizz);
+                RecyclerView.Adapter LisyAdapterQuizz = new ListQuizzAdapter(lesQuizz);
                 recyclerViewQuizz.setAdapter(LisyAdapterQuizz);
                 btnAddQuizz.setVisibility(View.GONE);
                 break;
             case R.id.nav_modif_quizz :
                 this.setTitle("Modifier un Quizz");
-                RecyclerView.Adapter ModifAdapterQuizz = new ModifQuizzAdapter(ListQuizz);
+                RecyclerView.Adapter ModifAdapterQuizz = new ModifQuizzAdapter(lesQuizz);
                 recyclerViewQuizz.setAdapter(ModifAdapterQuizz);
                 btnAddQuizz.setVisibility(View.VISIBLE);
                 break;
