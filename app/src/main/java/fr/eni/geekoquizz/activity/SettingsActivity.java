@@ -8,7 +8,6 @@ import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -25,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import fr.eni.geekoquizz.R;
-import fr.eni.geekoquizz.service.ImportQuizz;
 
 import java.util.List;
 
@@ -264,8 +262,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             prefMaj.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    ImportQuizz iq = new ImportQuizz();
-                    MainActivity.lesQuizz = iq.importListQuizz();
+                    Toast.makeText(preference.getContext(),"J'ai pas eu le temps de bosser, je me suis tapé la femme de mon patron",Toast.LENGTH_LONG).show();
                     return true;
                 }
             });
