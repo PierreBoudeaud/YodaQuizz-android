@@ -4,12 +4,15 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import org.parceler.Parcel;
+
 import java.io.Serializable;
 
+@Parcel
 @Entity(tableName = "Types")
 public class Type implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey()
     @ColumnInfo(name = "type_id")
     private int id;
 

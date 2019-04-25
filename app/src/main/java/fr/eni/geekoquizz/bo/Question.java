@@ -9,6 +9,8 @@ import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.Relation;
 import android.arch.persistence.room.TypeConverters;
 
+import org.parceler.Parcel;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +18,7 @@ import java.util.List;
 
 import fr.eni.geekoquizz.tools.TimestampConverter;
 
+@Parcel
 @Entity(tableName = "Questions", foreignKeys = {
         @ForeignKey(entity = Quizz.class, childColumns = "question_quizzId", parentColumns = "quizz_id")
 })
@@ -82,7 +85,7 @@ public class Question implements Serializable {
         this.reponses = reponses;
     }
 
-    public Question(int id, String intitule, Date dateCrea, Date dateModif, String image, int nbUse, int nbCorrectUse, List<Reponse> reponses, int temps, Quizz quizz) {
+    public Question(int id, String intitule, Date dateCrea, Date dateModif, String image, int nbUse, int nbCorrectUse, List<Reponse> reponses, int temps, int quizzId) {
         this.id = id;
         this.intitule = intitule;
         this.dateCrea = dateCrea;
@@ -92,7 +95,7 @@ public class Question implements Serializable {
         this.nbCorrectUse = nbCorrectUse;
         this.reponses = reponses;
         this.temps = temps;
-        this.quizz = quizz;
+        this.quizzId = quizzId;
     }
 
     public int getId() {

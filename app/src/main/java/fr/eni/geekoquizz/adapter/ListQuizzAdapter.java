@@ -19,6 +19,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -105,13 +107,14 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder,final int i) {
         final int idQuizz =  mDataset.get(i).getId();
+
         viewHolder.ivPhoto1.setImageResource(R.drawable.quizz1_01);
         viewHolder.ivPhoto2.setImageResource(R.drawable.quizz1_02);
         viewHolder.ivPhoto3.setImageResource(R.drawable.quizz1_03);
         viewHolder.tvTitre.setText(mDataset.get(i).getNom());
-        viewHolder.tvNbQuestion.setText(String.valueOf(59/*mDataset.get(i).getQuestions().size()*/));
+        viewHolder.tvNbQuestion.setText(String.valueOf(mDataset.get(i).getQuestions().size()));
         viewHolder.rbDifficult.setRating(mDataset.get(i).getDifficulte());
         viewHolder.tvType.setText(mDataset.get(i).getType().getNom());
         viewHolder.tvAuteur.setText(mDataset.get(i).getUtilisateur().getNom());
@@ -149,7 +152,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         viewHolder.btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getBtn(1,v,idQuizz);
+                getBtn(1,v,mDataset.get(i));
 
             }
         });
@@ -157,7 +160,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         viewHolder.btnStat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                getBtn(2,v,idQuizz);
+                getBtn(2,v,mDataset.get(i));
             }
         });
 
@@ -205,16 +208,17 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         dialog.show();
     }
 
-    public void getBtn(int id,View view,int idQuizz){
+    public void getBtn(int id,View view,Quizz quizz){
         switch (id){
             case 1:
-                Intent intent = new Intent(view.getContext(), QuizzActivity.class);
-                view.getContext().startActivity(intent);
+                Intent intentPlay = new Intent(view.getContext(), QuizzActivity.class);
+                intentPlay.putExtra("QuizzPlay", quizz.getId());
+                view.getContext().startActivity(intentPlay);
                 break;
             case 2:
-                Intent intent1 = new Intent(view.getContext(), InfostatActivity.class);
-                intent1.putExtra("IdQuizz",idQuizz);
-                view.getContext().startActivity(intent1);
+                Intent intentStat = new Intent(view.getContext(), InfostatActivity.class);
+                intentStat.putExtra("QuizzStat", quizz.getId());
+                view.getContext().startActivity(intentStat);
                 break;
         }
     }

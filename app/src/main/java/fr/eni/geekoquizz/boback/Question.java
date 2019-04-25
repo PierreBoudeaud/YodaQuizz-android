@@ -170,15 +170,16 @@ public class Question implements Serializable {
         return reponse;
     }
 
-    public fr.eni.geekoquizz.bo.Question toQuestion()
+    public fr.eni.geekoquizz.bo.Question toQuestion(final Quizz quizz)
     {
         List<fr.eni.geekoquizz.bo.Reponse> lesReponses = new ArrayList<>();
         for(Reponse uneReponse: getReponses())
         {
-            lesReponses.add(uneReponse.toReponse());
+            fr.eni.geekoquizz.bo.Reponse reponse = uneReponse.toReponse(this);
+            lesReponses.add(reponse);
         }
         return new fr.eni.geekoquizz.bo.Question(
-           getId(),getIntitule(),getDateCrea(),getDateModif(),getImage(),getNbUse(),getNbCorrectUse(),lesReponses,getTemps(),getQuizz().toQuizz()
+           getId(),getIntitule(),getDateCrea(),getDateModif(),getImage(),getNbUse(),getNbCorrectUse(),lesReponses,getTemps(), quizz.getId()
         );
     }
 

@@ -14,6 +14,8 @@ public class Reponse implements Serializable {
 
     private boolean correct;
 
+    private Question question;
+
     public Reponse() {
         this.dateCrea = new Date();
     }
@@ -24,11 +26,12 @@ public class Reponse implements Serializable {
         this.correct = correct;
     }
 
-    public Reponse(int id, String nom, Date dateCrea, boolean correct) {
+    public Reponse(int id, String nom, Date dateCrea, boolean correct, Question question) {
         this.id = id;
         this.nom = nom;
         this.dateCrea = dateCrea;
         this.correct = correct;
+        question = question;
     }
 
     public String getNom() {
@@ -63,10 +66,19 @@ public class Reponse implements Serializable {
         this.id = id;
     }
 
-    public fr.eni.geekoquizz.bo.Reponse toReponse()
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public fr.eni.geekoquizz.bo.Reponse toReponse(Question question)
     {
+        this.question = question;
         return new fr.eni.geekoquizz.bo.Reponse(
-          getId(),getNom(), getDateCrea(), isCorrect()
+          getId(),getNom(), getDateCrea(), isCorrect(), getQuestion().getId()
         );
     }
 

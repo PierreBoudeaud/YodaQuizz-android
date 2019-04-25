@@ -1,7 +1,10 @@
 package fr.eni.geekoquizz.activity;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,59 +41,85 @@ import fr.eni.geekoquizz.bo.Type;
 import fr.eni.geekoquizz.bo.Utilisateur;
 import fr.eni.geekoquizz.ui.infostat.InfoFragment;
 import fr.eni.geekoquizz.ui.infostat.StatFragment;
+import fr.eni.geekoquizz.view_model.QuestionViewModel;
+import fr.eni.geekoquizz.view_model.QuizzViewModel;
+import fr.eni.geekoquizz.view_model.ReponseViewModel;
+import fr.eni.geekoquizz.view_model.ThemeViewModel;
+import fr.eni.geekoquizz.view_model.TypeViewModel;
+import fr.eni.geekoquizz.view_model.UtilisateurViewModel;
 
 public class InfostatActivity extends AppCompatActivity {
 
     private Fragment monFragment = null;
 
-    private Quizz MonQuizz;
+    private Quizz MonQuizz = new Quizz();
 
     private List<Statistique> ListStat;
+
+    private int idQuizz;
 
     private TextView tvNbQuestion,tvType,DescriptionQuizz,tvAuteur,tvDate,textView12;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.infostat__activity);
 
-        int IdQuizz = getIntent().getIntExtra("IdQuizz",0);
+        idQuizz = getIntent().getIntExtra("QuizzStat",0);
+        //MonQuizz = Parcels.unwrap(getIntent().getParcelableExtra("QuizzStat"));
 
-        Type MonType = new Type("QCM","Que des QCMs","");
-        Utilisateur User = new Utilisateur(1,"Valoo22",new Date());
-        //Liste des Themes
-        List<Theme> ListThemes = new ArrayList<>();
-            ListThemes.add(new Theme("Jeu Vidéo","Description : Jeu Vidéo",String.valueOf(R.drawable.jeux_video)));
-            ListThemes.add(new Theme("serie_tele","Description : serie_tele",String.valueOf(R.drawable.serie_tele)));
-            ListThemes.add(new Theme("film","Description : film",String.valueOf(R.drawable.film)));
-            ListThemes.add(new Theme("anime","Description : anime",String.valueOf(R.drawable.anime)));
-            ListThemes.add(new Theme("pop_culture","Description : pop_culture",String.valueOf(R.drawable.pop_culture)));
-            ListThemes.add(new Theme("livre","Description : livre",String.valueOf(R.drawable.livre)));
-            ListThemes.add(new Theme("livre","Description : livre",String.valueOf(R.drawable.livre)));
+        QuizzViewModel quizzVM = ViewModelProviders.of(this).get(QuizzViewModel.class);
+        quizzVM.get(idQuizz).observe(this, new Observer<Quizz>() {
+            @Override
+            public void onChanged(@Nullable Quizz quizz) {
+                MonQuizz = quizz;
+                ThemeViewModel themeViewModel = ViewModelProviders.of(InfostatActivity.this).get(ThemeViewModel.class);
+                themeViewModel.getByQuizz(quizz.getId()).observe(InfostatActivity.this, new Observer<List<Theme>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Theme> themes) {
+                        MonQuizz.setListThemes(themes);
+                    }
+                });
+                UtilisateurViewModel utilisateurVM = ViewModelProviders.of(InfostatActivity.this).get(UtilisateurViewModel.class);
+                utilisateurVM.get(quizz.getUtilisateurId()).observe(InfostatActivity.this, new Observer<Utilisateur>() {
+                    @Override
+                    public void onChanged(@Nullable Utilisateur utilisateur) {
+                        MonQuizz.setUtilisateur(utilisateur);
+                    }
+                });
+                TypeViewModel typeVM = ViewModelProviders.of(InfostatActivity.this).get(TypeViewModel.class);
+                typeVM.get(quizz.getTypeId()).observe(InfostatActivity.this, new Observer<Type>() {
+                    @Override
+                    public void onChanged(@Nullable Type type) {
+                        MonQuizz.setType(type);
+                    }
+                });
+                QuestionViewModel questionVM = ViewModelProviders.of(InfostatActivity.this).get(QuestionViewModel.class);
+                questionVM.getByQuizz(quizz.getId()).observe(InfostatActivity.this, new Observer<List<Question>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Question> questions) {
+                        MonQuizz.setQuestions(questions);
+                        ReponseViewModel reponseVM = ViewModelProviders.of(InfostatActivity.this).get(ReponseViewModel.class);
+                        for(final Question question: questions) {
+                            reponseVM.getByQuestion(question.getId()).observe(InfostatActivity.this, new Observer<List<Reponse>>() {
+                                @Override
+                                public void onChanged(@Nullable List<Reponse> reponses) {
+                                    question.setReponses(reponses);
+                                }
+                            });
+                        }
+                        Log.i("Import", MonQuizz.toString());
+                        InfostatActivity.this.setTitle(MonQuizz.getNom());
 
-        List<Question> ListQuest = new ArrayList<>();
-        List<Reponse> ListReps = new ArrayList<>();
-            ListQuest.add(new Question("Ceci est une question ?",new Date(), new Date(), String.valueOf(R.drawable.quizz1_01), 10, 5, ListReps));
-            ListQuest.add(new Question("Ceci est une question ?",new Date(), new Date(), String.valueOf(R.drawable.quizz1_02), 10, 5, ListReps));
-            ListQuest.add(new Question("Ceci est une question ?",new Date(), new Date(), String.valueOf(R.drawable.quizz1_03), 10, 5, ListReps));
+                        if (savedInstanceState == null)
+                        {
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_interchangeable, InfoFragment.newInstance(MonQuizz)).commit();
+                        }
+                    }
+                });
 
-        MonQuizz = new Quizz(IdQuizz, "Jeux-vidéo années 90",(float)2.6f, new Date(), new Date(2019, 04, 18), "Description : Redécouvrez les jeux-vidéo de son age d'or grâce a ce petit quizz développé par mes soins.", 1, User, null, ListThemes, MonType, null);
-        MonQuizz.setQuestions(ListQuest);
-
-        List<Statistique> ListStat0 = new ArrayList<>();
-            ListStat0.add(new Statistique(new Date(2019, 04, 18),56,3,MonQuizz,User));
-            ListStat0.add(new Statistique(new Date(),75,2,MonQuizz,User));
-            ListStat0.add(new Statistique(new Date(),86,1,MonQuizz,User));
-        ListStat = ListStat0;
-        MonQuizz.setStatistiques(ListStat);
-
-        this.setTitle(MonQuizz.getNom());
-
-        if (savedInstanceState == null)
-        {
-
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_interchangeable, InfoFragment.newInstance(MonQuizz)).commit();
-        }
+            }
+        });
     }
 
     public void GetBtnInfo(View view) {
@@ -96,9 +128,9 @@ public class InfostatActivity extends AppCompatActivity {
     }
 
     public void GetBtnPlay(View v) {
-        Intent intent = new Intent(v.getContext(), QuizzActivity.class);
-        v.getContext().startActivity(intent);
-
+        Intent intentPlay = new Intent(v.getContext(), QuizzActivity.class);
+        intentPlay.putExtra("QuizzPlay", Parcels.wrap(MonQuizz));
+        v.getContext().startActivity(intentPlay);
     }
 
     public void GetBtnStat(View view) {

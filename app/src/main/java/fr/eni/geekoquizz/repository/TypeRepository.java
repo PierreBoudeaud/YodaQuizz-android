@@ -31,10 +31,23 @@ public class TypeRepository {
         async.execute(type);
     }
 
+    public void insertAll(List<Type> types) {
+        TypeRepository.AsyncMultipleInsert async = new TypeRepository.AsyncMultipleInsert();
+        async.execute(types);
+    }
+
     public class AsyncInsert extends AsyncTask<Type, Void, Void> {
         @Override
         protected Void doInBackground(Type... types) {
             typeDAO.insert(types[0]);
+            return null;
+        }
+    }
+
+    public class AsyncMultipleInsert extends AsyncTask<List<Type>, Void, Void> {
+        @Override
+        protected Void doInBackground(List<Type>... types) {
+            typeDAO.insertAll(types[0]);
             return null;
         }
     }

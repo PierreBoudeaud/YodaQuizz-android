@@ -36,10 +36,23 @@ public class ThemeRepository {
         async.execute(theme);
     }
 
+    public void insertAll(List<Theme> themes) {
+        ThemeRepository.AsyncMultipleInsert async = new ThemeRepository.AsyncMultipleInsert();
+        async.execute(themes);
+    }
+
     public class AsyncInsert extends AsyncTask<Theme, Void, Void> {
         @Override
         protected Void doInBackground(Theme... themes) {
             themeDAO.insert(themes[0]);
+            return null;
+        }
+    }
+
+    public class AsyncMultipleInsert extends AsyncTask<List<Theme>, Void, Void> {
+        @Override
+        protected Void doInBackground(List<Theme>... themes) {
+            themeDAO.insertAll(themes[0]);
             return null;
         }
     }

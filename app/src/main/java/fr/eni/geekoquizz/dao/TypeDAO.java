@@ -19,4 +19,7 @@ public interface TypeDAO {
 
     @Insert
     void insert(Type type);
+
+    @Insert
+    void insertAll(List<Type> types);
 }

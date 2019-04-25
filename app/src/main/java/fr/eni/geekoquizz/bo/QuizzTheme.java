@@ -5,8 +5,11 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
+@Parcel
 @Entity(tableName = "QuizzTheme",
 primaryKeys = {"quizzId", "themeId"},
 foreignKeys = {
@@ -24,6 +27,8 @@ public class QuizzTheme {
     private Theme theme;
 
 
+    public QuizzTheme() {
+    }
 
     public QuizzTheme(final Quizz quizz, final Theme theme) {
         this.quizz = quizz;

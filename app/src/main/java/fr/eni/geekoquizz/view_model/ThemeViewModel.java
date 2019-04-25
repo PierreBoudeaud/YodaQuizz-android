@@ -30,6 +30,10 @@ public class ThemeViewModel extends AndroidViewModel {
         themeRepository.insert(theme);
     }
 
+    public void insertAll(List<Theme> themes) {
+        themeRepository.insertAll(themes);
+    }
+
     public LiveData<List<Theme>> get() {
         return themes;
     }
