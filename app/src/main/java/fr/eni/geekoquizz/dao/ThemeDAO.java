@@ -23,4 +23,7 @@ public interface ThemeDAO {
 
     @Insert
     void insert(Theme theme);
+
+    @Insert
+    void insertAll(List<Theme> themes);
 }

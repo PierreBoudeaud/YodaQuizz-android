@@ -7,6 +7,7 @@ import android.arch.persistence.room.DatabaseConfiguration;
 import android.arch.persistence.room.InvalidationTracker;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
@@ -19,7 +20,7 @@ import fr.eni.geekoquizz.bo.Theme;
 import fr.eni.geekoquizz.bo.Type;
 import fr.eni.geekoquizz.bo.Utilisateur;
 
-@Database(entities = {Quizz.class, Utilisateur.class, Statistique.class, Theme.class, Question.class, Type.class, Reponse.class, QuizzTheme.class}, version = 1)
+@Database(entities = {Quizz.class, Utilisateur.class, Statistique.class, Theme.class, Question.class, Type.class, Reponse.class, QuizzTheme.class}, version = 2)
 public abstract class Bdd extends RoomDatabase {
     private static Bdd INSTANCE;
 
@@ -30,9 +31,11 @@ public abstract class Bdd extends RoomDatabase {
     public abstract ThemeDAO themeDAO();
     public abstract TypeDAO typeDAO();
     public abstract ReponseDAO reponseDAO();
+    public abstract QuizzThemeDAO quizzThemeDAO();
 
     public static synchronized Bdd getInstance(Context context) {
         if (INSTANCE == null) {
+            context.deleteDatabase("GeekoQuizz");
             INSTANCE = Room.databaseBuilder(context, Bdd.class, "GeekoQuizz")
                     .addCallback(roomCallBack)
                     .build();
@@ -44,7 +47,6 @@ public abstract class Bdd extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            //Remplir la bdd
         }
     };
 }
