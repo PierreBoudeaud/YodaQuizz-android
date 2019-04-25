@@ -29,7 +29,8 @@ public class UtilisateurRepository {
     }
 
     public void insert(Utilisateur utilisateur) {
-
+        UtilisateurRepository.AsyncInsert async = new UtilisateurRepository.AsyncInsert();
+        async.execute(utilisateur);
     }
 
     public class AsyncInsert extends AsyncTask<Utilisateur, Void, Void> {
