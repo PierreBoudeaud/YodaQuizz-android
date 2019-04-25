@@ -4,8 +4,11 @@ import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -14,19 +17,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 
-import org.parceler.Parcels;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Random;
 
@@ -34,10 +31,7 @@ import fr.eni.geekoquizz.R;
 import fr.eni.geekoquizz.bo.Question;
 import fr.eni.geekoquizz.bo.Quizz;
 import fr.eni.geekoquizz.bo.Reponse;
-import fr.eni.geekoquizz.bo.Statistique;
 import fr.eni.geekoquizz.bo.Theme;
-import fr.eni.geekoquizz.bo.Type;
-import fr.eni.geekoquizz.bo.Utilisateur;
 import fr.eni.geekoquizz.view_model.QuestionViewModel;
 import fr.eni.geekoquizz.view_model.QuizzViewModel;
 import fr.eni.geekoquizz.view_model.ReponseViewModel;
@@ -52,20 +46,9 @@ public class QuizzActivity extends AppCompatActivity {
     private CountDownTimer timer;
     private Boolean isGoodResponse;
     private int nbCorrectResponse, nbResponseFound, indexQuestion, nbCorrectRep,NbQuestion,points,totalPoints,idQuizz;
-
-    /*
-    private Reponse RepA1 = new Reponse("Blanc",true),RepB1 = new Reponse("Bleu",false),RepC1 = new Reponse("Rouge",false),RepD1 = new Reponse("Jaune",false);
-    private Reponse RepA2 =new Reponse("Valoo", true), RepB2=new Reponse("Pierre", true), RepC2=new Reponse("Antoine", true), RepD2=new Reponse("Luke Skywalker", false);
-    private Question Question1 = new Question("Quelle est la couleur du cheval blanc d'Henry IV ?",new Date(),new Date(),"",0,0,  new ArrayList<Reponse>(){{add(RepA1);add(RepB1); add(RepC1); add(RepD1);}});
-    private Question Question2 = new Question("Quelle sont les créateurs de cette application",new Date(),new Date(),"",0,0,  new ArrayList<Reponse>(){{add(RepA2);add(RepB2); add(RepC2); add(RepD2);}});
-    private Utilisateur unUtilisateur = new Utilisateur();
-    private List<Theme> lesThemes = new ArrayList<>();
-    private Type unType = new Type();
-    private List<Statistique> lesStatistiques = new ArrayList<>();
-    private Quizz unQuizz = new Quizz(0,"Quizz trop bien",2.5f,new Date(),new Date(), "Petite Quizz de test", 1, unUtilisateur, new ArrayList<Question>(){{add(Question1);add(Question2);}}, lesThemes, unType, lesStatistiques);
-*/
     private Question uneQuestion;
     private Quizz unQuizz;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,11 +65,7 @@ public class QuizzActivity extends AppCompatActivity {
                 Log.i("QuizzActivity", themes.toString());
             }
         });
-
-        //unQuizz = Parcels.unwrap(getIntent().getParcelableExtra("QuizzPlay"));
         idQuizz = getIntent().getIntExtra("QuizzPlay",0);
-        //initQuizz(unQuizz);
-//        QuizzViewModel quizzVM = ViewModelProviders.of(this).get(QuizzViewModel.class);
         QuizzViewModel quizzVM = QuizzViewModel.getInstance(this);
         quizzVM.get(idQuizz).observe(this, new Observer<Quizz>() {
             @Override
@@ -207,14 +186,14 @@ public class QuizzActivity extends AppCompatActivity {
         }
         totalPoints += points;
 
-        TextView text2 = (TextView) dialog.findViewById(R.id.tvNbQuestionquizz);
+        TextView text2 = dialog.findViewById(R.id.tvNbQuestionquizz);
         text2.setText("Question N°"+ (indexQuestion)+"/"+NbQuestion);
 
-        TextView text3 = (TextView) dialog.findViewById(R.id.tvReponsePts);
+        TextView text3 = dialog.findViewById(R.id.tvReponsePts);
         text3.setText("+ "+points+" Pts");
 
 
-        Button dialogButton = (Button) dialog.findViewById(R.id.btnQuittePopUp2);
+        Button dialogButton = dialog.findViewById(R.id.btnQuittePopUp2);
         if((indexQuestion+1)<=unQuizz.getQuestions().size())
             dialogButton.setText(R.string.btnPopUpNext);
         else
@@ -300,8 +279,34 @@ public class QuizzActivity extends AppCompatActivity {
         btnRepB.setText(uneQuestion.getReponses().get(1).getNom());
         btnRepC.setText(uneQuestion.getReponses().get(2).getNom());
         btnRepD.setText(uneQuestion.getReponses().get(3).getNom());
+        new DownloadImageTask((ImageView) findViewById(R.id.iv_Illustration)).execute("http://yoda.pboudeaud.fr/api/showFile/"+uneQuestion.getImage());
         indexQuestion = indexQuestion+1;
         timer.start();
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 
     public void onClickRepA(View view) {
