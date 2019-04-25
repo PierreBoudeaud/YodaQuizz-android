@@ -56,7 +56,7 @@ public class InfoFragment extends Fragment {
         if(MonQuizz.getThemes().size() != 0){
             for(int i = 0; i < ListImageView.size();i++){
                 ListImageView.get(i).setVisibility(View.VISIBLE);
-                ListImageView.get(i).setImageResource(Integer.valueOf(MonQuizz.getThemes().get(i).getTheme().getIcon()));
+                //ListImageView.get(i).setImageResource(Integer.valueOf(MonQuizz.getThemes().get(i).getTheme().getIcon()));
             }
         }
         int MoyCorrect = 0,MoyPercent = 0;
