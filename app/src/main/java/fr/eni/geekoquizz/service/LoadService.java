@@ -5,12 +5,10 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.geekoquizz.activity.ImportActivity;
 import fr.eni.geekoquizz.bo.Question;
 import fr.eni.geekoquizz.bo.Quizz;
 import fr.eni.geekoquizz.bo.Reponse;

@@ -18,6 +18,7 @@ import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import fr.eni.geekoquizz.R;
 import fr.eni.geekoquizz.service.ImportQuizz;
+import fr.eni.geekoquizz.service.ImportService;
 
 import java.util.List;
 
@@ -264,8 +266,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             prefMaj.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    ImportQuizz iq = new ImportQuizz();
-                    MainActivity.lesQuizz = iq.importListQuizz();
+                    Toast.makeText(preference.getContext(), "Update", Toast.LENGTH_LONG).show();
                     return true;
                 }
             });

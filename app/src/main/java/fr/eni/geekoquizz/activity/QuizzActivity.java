@@ -1,13 +1,17 @@
 package fr.eni.geekoquizz.activity;
 
 import android.app.Dialog;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -17,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import org.parceler.Parcels;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,6 +38,10 @@ import fr.eni.geekoquizz.bo.Statistique;
 import fr.eni.geekoquizz.bo.Theme;
 import fr.eni.geekoquizz.bo.Type;
 import fr.eni.geekoquizz.bo.Utilisateur;
+import fr.eni.geekoquizz.view_model.QuestionViewModel;
+import fr.eni.geekoquizz.view_model.QuizzViewModel;
+import fr.eni.geekoquizz.view_model.ReponseViewModel;
+import fr.eni.geekoquizz.view_model.ThemeViewModel;
 
 public class QuizzActivity extends AppCompatActivity {
 
@@ -39,60 +49,70 @@ public class QuizzActivity extends AppCompatActivity {
     private TextView tvQuestion;
     private TextView tvNbQuestion;
     private Button btnRepA, btnRepB, btnRepC, btnRepD, btnJoker;
-    private CountDownTimer timer, timeafterlose, timeafterwin;
+    private CountDownTimer timer;
     private Boolean isGoodResponse;
-    private int nbCorrectResponse, nbResponseFound, indexQuestion, nbCorrectRep,NbQuestion,points,totalPoints;
+    private int nbCorrectResponse, nbResponseFound, indexQuestion, nbCorrectRep,NbQuestion,points,totalPoints,idQuizz;
+
+    /*
     private Reponse RepA1 = new Reponse("Blanc",true),RepB1 = new Reponse("Bleu",false),RepC1 = new Reponse("Rouge",false),RepD1 = new Reponse("Jaune",false);
     private Reponse RepA2 =new Reponse("Valoo", true), RepB2=new Reponse("Pierre", true), RepC2=new Reponse("Antoine", true), RepD2=new Reponse("Luke Skywalker", false);
     private Question Question1 = new Question("Quelle est la couleur du cheval blanc d'Henry IV ?",new Date(),new Date(),"",0,0,  new ArrayList<Reponse>(){{add(RepA1);add(RepB1); add(RepC1); add(RepD1);}});
     private Question Question2 = new Question("Quelle sont les créateurs de cette application",new Date(),new Date(),"",0,0,  new ArrayList<Reponse>(){{add(RepA2);add(RepB2); add(RepC2); add(RepD2);}});
-    private Question uneQuestion;
     private Utilisateur unUtilisateur = new Utilisateur();
     private List<Theme> lesThemes = new ArrayList<>();
     private Type unType = new Type();
     private List<Statistique> lesStatistiques = new ArrayList<>();
     private Quizz unQuizz = new Quizz(0,"Quizz trop bien",2.5f,new Date(),new Date(), "Petite Quizz de test", 1, unUtilisateur, new ArrayList<Question>(){{add(Question1);add(Question2);}}, lesThemes, unType, lesStatistiques);
-
+*/
+    private Question uneQuestion;
+    private Quizz unQuizz;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizz);
-        this.setTitle(unQuizz.getNom());
-        tvQuestion = findViewById(R.id.tvQuestion);
-        tvNbQuestion = findViewById(R.id.tvNbQuestionquizz);
-        btnRepA = findViewById(R.id.btn_repA);
-        btnRepB = findViewById(R.id.btn_repB);
-        btnRepC = findViewById(R.id.btn_repC);
-        btnRepD = findViewById(R.id.btn_repD);
-        btnJoker = findViewById(R.id.btn_joker);
-        time = findViewById(R.id.progressBar);
-        timer = new CountDownTimer(10000,100)
-        {
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ThemeViewModel themeVM = ViewModelProviders.of(this).get(ThemeViewModel.class);
+        themeVM.get().observe(this, new Observer<List<Theme>>() {
             @Override
-            public void onTick(long millisUntilFinished)
-            {
-                points = ((int)millisUntilFinished*10/1000);
-                time.setProgress(100 - ((int)millisUntilFinished*10/1000));
+            public void onChanged(@Nullable List<Theme> themes) {
+                Log.i("QuizzActivity", themes.toString());
             }
+        });
+
+        //unQuizz = Parcels.unwrap(getIntent().getParcelableExtra("QuizzPlay"));
+        idQuizz = getIntent().getIntExtra("QuizzPlay",0);
+        //initQuizz(unQuizz);
+//        QuizzViewModel quizzVM = ViewModelProviders.of(this).get(QuizzViewModel.class);
+        QuizzViewModel quizzVM = QuizzViewModel.getInstance(this);
+        quizzVM.get(idQuizz).observe(this, new Observer<Quizz>() {
             @Override
-            public void onFinish()
-            {
-                btnRepA.setClickable(false);
-                btnRepB.setClickable(false);
-                btnRepC.setClickable(false);
-                btnRepD.setClickable(false);
-                timer.cancel();
-                if(isGoodResponse)
-                {
-                    PopUpInterQuestion(true);
-                }
-                else
-                {
-                    PopUpInterQuestion(false);
-                }
+            public void onChanged(@Nullable final Quizz quizz) {
+                unQuizz = quizz;
+                Log.i("QuizzActivity", "onChanged()");
+                QuestionViewModel questionVM = ViewModelProviders.of(QuizzActivity.this).get(QuestionViewModel.class);
+                questionVM.getByQuizz(quizz.getId()).observe(QuizzActivity.this, new Observer<List<Question>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Question> questions) {
+                        unQuizz.setQuestions(questions);
+                        ReponseViewModel reponseVM = ViewModelProviders.of(QuizzActivity.this).get(ReponseViewModel.class);
+                        for(final Question question: questions) {
+                            reponseVM.getByQuestion(question.getId()).observe(QuizzActivity.this, new Observer<List<Reponse>>() {
+                                @Override
+                                public void onChanged(@Nullable List<Reponse> reponses) {
+                                    question.setReponses(reponses);
+                                }
+                            });
+                        }
+                        Log.i("QuizzActivity", quizz.toString());
+                        initQuizz(quizz);
+                    }
+                });
             }
-        };
-        initQuizz(unQuizz);
+        });
     }
 
     public void PopUpInterQuestion(boolean Correct){
@@ -215,6 +235,45 @@ public class QuizzActivity extends AppCompatActivity {
 
     public void initQuizz(Quizz unQuizz)
     {
+        this.unQuizz = unQuizz;
+
+        QuizzActivity.this.setTitle(unQuizz.getNom());
+        tvQuestion = findViewById(R.id.tvQuestion);
+        tvNbQuestion = findViewById(R.id.tvNbQuestionquizz);
+        btnRepA = findViewById(R.id.btn_repA);
+        btnRepB = findViewById(R.id.btn_repB);
+        btnRepC = findViewById(R.id.btn_repC);
+        btnRepD = findViewById(R.id.btn_repD);
+        btnJoker = findViewById(R.id.btn_joker);
+        time = findViewById(R.id.progressBar);
+        timer = new CountDownTimer(10000,100)
+        {
+            @Override
+            public void onTick(long millisUntilFinished)
+            {
+                points = ((int)millisUntilFinished*10/1000);
+                time.setProgress(100 - ((int)millisUntilFinished*10/1000));
+            }
+            @Override
+            public void onFinish()
+            {
+                btnRepA.setClickable(false);
+                btnRepB.setClickable(false);
+                btnRepC.setClickable(false);
+                btnRepD.setClickable(false);
+                timer.cancel();
+                if(isGoodResponse)
+                {
+                    PopUpInterQuestion(true);
+                }
+                else
+                {
+                    PopUpInterQuestion(false);
+                }
+            }
+        };
+
+
         nbCorrectRep = 0;
         indexQuestion = 0;
         initQuestion(unQuizz.getQuestions().get(indexQuestion),unQuizz.getQuestions().size());
