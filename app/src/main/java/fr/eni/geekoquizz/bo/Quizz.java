@@ -7,6 +7,8 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
+import org.parceler.Parcel;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import fr.eni.geekoquizz.tools.TimestampConverter;
 
+@Parcel
 @Entity(tableName = "Quizz", foreignKeys = {
         @ForeignKey(entity = Utilisateur.class, parentColumns = "utilisateur_id", childColumns = "quizz_utilisateurId"),
         @ForeignKey(entity = Type.class, parentColumns = "type_id", childColumns = "quizz_typeId")
@@ -110,6 +113,7 @@ public class Quizz implements Serializable {
         this.version = version;
         this.questions = questions;
         this.type = type;
+        this.typeId = type.getId();
         this.statistiques = statistiques;
         convertTheme(themes);
         this.utilisateur = utilisateur;
@@ -186,6 +190,12 @@ public class Quizz implements Serializable {
 
     public void setThemes(List<QuizzTheme> themes) {
         this.themes = themes;
+    }
+
+    public void setListThemes(List<Theme> themes) {
+        for(Theme theme: themes) {
+            this.addTheme(theme);
+        }
     }
 
     public List<Statistique> getStatistiques() {

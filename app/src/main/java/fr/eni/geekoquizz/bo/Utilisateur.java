@@ -7,6 +7,8 @@ import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.Relation;
 import android.arch.persistence.room.TypeConverters;
 
+import org.parceler.Parcel;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import fr.eni.geekoquizz.tools.TimestampConverter;
 
+@Parcel
 @Entity(tableName = "Utilisateurs")
 public class Utilisateur implements Serializable {
 
@@ -31,10 +34,12 @@ public class Utilisateur implements Serializable {
     @Ignore
     private List<Statistique> statistiques;
 
+     @Ignore
     public Utilisateur() {
         this.date = new Date();
     }
 
+    @Ignore
     public Utilisateur(String nom) {
         this();
         this.nom = nom;

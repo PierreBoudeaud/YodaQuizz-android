@@ -4,12 +4,15 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import org.parceler.Parcel;
+
 import java.io.Serializable;
 
+@Parcel
 @Entity(tableName = "Themes")
 public class Theme implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey()
     @ColumnInfo(name = "theme_id")
     private int id;
 

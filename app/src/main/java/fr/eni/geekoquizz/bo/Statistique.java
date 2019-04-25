@@ -7,11 +7,14 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
+import org.parceler.Parcel;
+
 import java.io.Serializable;
 import java.util.Date;
 
 import fr.eni.geekoquizz.tools.TimestampConverter;
 
+@Parcel
 @Entity(tableName = "Statistiques")
 public class Statistique implements Serializable {
 
