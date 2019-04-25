@@ -28,6 +28,10 @@ public class TypeViewModel extends AndroidViewModel {
         typeRepository.insert(type);
     }
 
+    public void insertAll(List<Type> types) {
+        typeRepository.insertAll(types);
+    }
+
     public LiveData<List<Type>> get() {
         return types;
     }
