@@ -35,7 +35,6 @@ public abstract class Bdd extends RoomDatabase {
 
     public static synchronized Bdd getInstance(Context context) {
         if (INSTANCE == null) {
-            context.deleteDatabase("GeekoQuizz");
             INSTANCE = Room.databaseBuilder(context, Bdd.class, "GeekoQuizz")
                     .addCallback(roomCallBack)
                     .build();
