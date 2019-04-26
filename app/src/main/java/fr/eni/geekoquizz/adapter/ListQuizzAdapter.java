@@ -22,8 +22,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.parceler.Parcels;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +33,6 @@ import fr.eni.geekoquizz.bo.Quizz;
 import fr.eni.geekoquizz.activity.InfostatActivity;
 import fr.eni.geekoquizz.activity.QuizzActivity;
 import fr.eni.geekoquizz.bo.Theme;
-import fr.eni.geekoquizz.tools.Random;
 
 public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.ViewHolder>
 {
@@ -50,23 +47,21 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
 
     private static List<List<Theme>> ListTheme = new ArrayList<>();
 
-    // Fournit une référence aux vues pour chaque élément de données
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
-        // Chaque élément contient seulement une TextView
-        public DownloadImageTask ivPhoto1,ivPhoto2,ivPhoto3;
+        private DownloadImageTask ivPhoto1,ivPhoto2,ivPhoto3;
 
-        public TextView tvTitre, tvNbQuestion, tvType, tvAuteur, tvDate, tvDecription;
+        private TextView tvTitre, tvNbQuestion, tvType, tvAuteur, tvDate, tvDecription;
 
-        public RatingBar rbDifficult;
+        private RatingBar rbDifficult;
 
-        public Button btnPlay,btnInfoMain,btnStat;
+        private Button btnPlay,btnStat;
 
-        public ImageButton btnCollapse;
+        private ImageButton btnCollapse;
 
-        public ConstraintLayout cvDetailQuizz;
+        private ConstraintLayout cvDetailQuizz;
 
-        public ViewHolder(View v)
+        private ViewHolder(View v)
         {
             super(v);
             ivPhoto1 = new ListQuizzAdapter.DownloadImageTask((ImageView) v.findViewById(R.id.ivPhoto1));
@@ -84,8 +79,8 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
             btnCollapse = v.findViewById(R.id.btnColapse);
             cvDetailQuizz = v.findViewById(R.id.cvDetail);
 
-            for(int a = 0; a < TabId.length;a++){
-                ListImageButton.add((ImageButton) v.findViewById(TabId[a]));
+            for(int a : TabId){
+                ListImageButton.add((ImageButton) v.findViewById(a));
             }
 
         }
@@ -95,7 +90,6 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         }
     }
 
-    // Constructeur qui attend les données à afficher en paramètre
     public ListQuizzAdapter(List<Quizz> ListQuizz)
     {
         mDataset = ListQuizz;
@@ -105,16 +99,13 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
     @Override
     public ListQuizzAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_quizz_simple,viewGroup, false);
-
-        ViewHolder vh = new ViewHolder(v);
-
-        return vh;
+        return new ViewHolder(v);
     }
 
     public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
+        private DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
 
@@ -138,11 +129,12 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder,final int i) {
-        final int idQuizz =  mDataset.get(i).getId();
         List<String> ListImages = mDataset.get(i).getSomeImagesOfQuestions();
-        viewHolder.ivPhoto1.execute("http://yoda.pboudeaud.fr/api/showFile/"+ListImages.get(0));
-        viewHolder.ivPhoto2.execute("http://yoda.pboudeaud.fr/api/showFile/"+ListImages.get(1));
-        viewHolder.ivPhoto3.execute("http://yoda.pboudeaud.fr/api/showFile/"+ListImages.get(2));
+        if(ListImages != null && ListImages.size() > 0) {
+            viewHolder.ivPhoto1.execute("http://yoda.pboudeaud.fr/api/showFile/" + ListImages.get(0));
+            viewHolder.ivPhoto2.execute("http://yoda.pboudeaud.fr/api/showFile/" + ListImages.get(1));
+            viewHolder.ivPhoto3.execute("http://yoda.pboudeaud.fr/api/showFile/" + ListImages.get(2));
+        }
         viewHolder.tvTitre.setText(mDataset.get(i).getNom());
         viewHolder.tvNbQuestion.setText(String.valueOf(mDataset.get(i).getQuestions().size()));
         viewHolder.rbDifficult.setRating(mDataset.get(i).getDifficulte());
@@ -155,11 +147,12 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
             List<ImageButton> MaListeImg = new ArrayList<>();
             for(int b = 0; b < mDataset.get(i).getThemes().size();b++){
                 for(int a = 0; a < ListImageButton.size();a++) {
-                    if(ListTheme.size() < 6){
+                    if(MaListeThe.size() < 6){
                         if(ListImageButton.get(a).getTag().toString().equals(mDataset.get(i).getThemes().get(b).getTheme().getIcon())){
                             ListImageButton.get(a).setVisibility(View.VISIBLE);
                             MaListeThe.add(mDataset.get(i).getThemes().get(b).getTheme());
                             MaListeImg.add(ListImageButton.get(a));
+                            //Log.i("ListeTheme "+b+"_"+a,mDataset.get(i).getThemes().get(b).getTheme().getNom()+"------------"+ListImageButton.get(a));
                         }
                     }else{
                         break;
@@ -199,6 +192,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
             public void onClick(View v) {
                 if (viewHolder.cvDetailQuizz.getVisibility() == View.GONE)
                 {
+                    Log.i("Nom Theme",""+ListImageButtonQuizz.get(i).size());
                     viewHolder.cvDetailQuizz.setVisibility(View.VISIBLE);
                     viewHolder.btnCollapse.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
                 }
@@ -211,17 +205,17 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         });
 
         for(int a = 0; a < ListImageButtonQuizz.get(i).size();a++){
-            final int id = i,NumThe = a;
+            final int NumThe = a;
             ListImageButtonQuizz.get(i).get(a).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    GetDescriptTheme(v,ListImageButtonQuizz.get(id).get(NumThe).getDrawable(),ListTheme.get(id).get(NumThe));
+                    GetDescriptTheme(v,ListImageButtonQuizz.get(i).get(NumThe).getDrawable(),ListTheme.get(i).get(NumThe));
                 }
             });
         }
     }
 
-    public void GetDescriptTheme(View view, Drawable Draw, Theme MonTheme){
+    private void GetDescriptTheme(View view, Drawable Draw, Theme MonTheme){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setCancelable(true);
@@ -239,7 +233,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
     }
 
 
-    public void getBtn(int id,View view,Quizz quizz){
+    private void getBtn(int id,View view,Quizz quizz){
         switch (id){
             case 1:
                 Intent intentPlay = new Intent(view.getContext(), QuizzActivity.class);

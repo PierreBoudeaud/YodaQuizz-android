@@ -8,7 +8,6 @@ import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -18,17 +17,11 @@ import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import fr.eni.geekoquizz.R;
-import fr.eni.geekoquizz.service.ImportQuizz;
-import fr.eni.geekoquizz.service.ImportService;
-
 import java.util.List;
 
 /**

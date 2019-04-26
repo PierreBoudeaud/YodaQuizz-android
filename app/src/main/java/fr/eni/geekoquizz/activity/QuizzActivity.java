@@ -4,11 +4,9 @@ import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.os.AsyncTask;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -53,7 +51,7 @@ public class QuizzActivity extends AppCompatActivity {
     private Button btnRepA, btnRepB, btnRepC, btnRepD, btnJoker;
     private CountDownTimer timer;
     private Boolean isGoodResponse;
-    private int nbCorrectResponse, nbResponseFound, indexQuestion, nbCorrectRep,NbQuestion,points,totalPoints,idQuizz;
+    private int nbCorrectResponse, nbResponseFound, indexQuestion, nbCorrectRep,NbQuestion,points,totalPoints;
     private Question uneQuestion;
     private Quizz unQuizz;
     private MediaPlayer win_sound = null;
@@ -74,10 +72,12 @@ public class QuizzActivity extends AppCompatActivity {
         themeVM.get().observe(this, new Observer<List<Theme>>() {
             @Override
             public void onChanged(@Nullable List<Theme> themes) {
-                Log.i("QuizzActivity", themes.toString());
+                if(themes != null){
+                    Log.i("QuizzActivity", themes.toString());
+                }
             }
         });
-        idQuizz = getIntent().getIntExtra("QuizzPlay",0);
+        int idQuizz = getIntent().getIntExtra("QuizzPlay",0);
         QuizzViewModel quizzVM = QuizzViewModel.getInstance(this);
         quizzVM.get(idQuizz).observe(this, new Observer<Quizz>() {
             @Override
@@ -85,27 +85,25 @@ public class QuizzActivity extends AppCompatActivity {
                 unQuizz = quizz;
                 Log.i("QuizzActivity", "onChanged()");
                 QuestionViewModel questionVM = ViewModelProviders.of(QuizzActivity.this).get(QuestionViewModel.class);
-                questionVM.getByQuizz(quizz.getId()).observe(QuizzActivity.this, new Observer<List<Question>>() {
+                questionVM.getByQuizz(unQuizz.getId()).observe(QuizzActivity.this, new Observer<List<Question>>() {
                     @Override
                     public void onChanged(@Nullable List<Question> questions) {
                         unQuizz.setQuestions(questions);
                         ReponseViewModel reponseVM = ViewModelProviders.of(QuizzActivity.this).get(ReponseViewModel.class);
-                        for(final Question question: questions) {
-                            reponseVM.getByQuestion(question.getId()).observe(QuizzActivity.this, new Observer<List<Reponse>>() {
-                                @Override
-                                public void onChanged(@Nullable List<Reponse> reponses) {
-                                    question.setReponses(reponses);
-                                }
-                            });
+                        if(questions != null){
+                            for(final Question question: questions) {
+                                reponseVM.getByQuestion(question.getId()).observe(QuizzActivity.this, new Observer<List<Reponse>>() {
+                                    @Override
+                                    public void onChanged(@Nullable List<Reponse> reponses) {
+                                        question.setReponses(reponses);
+                                    }
+                                });
+                            }
                         }
-                        Log.i("QuizzActivity", quizz.toString());
-                        CountDownTimer timeout = new CountDownTimer(100, 100) {
-
+                        new CountDownTimer(100, 100) {
                             @Override
                             public void onTick(long millisUntilFinished) {
-
                             }
-
                             @Override
                             public void onFinish() {
                                 initQuizz(quizz);
@@ -122,18 +120,18 @@ public class QuizzActivity extends AppCompatActivity {
         questionViewModel.get(indexQuestion).observe(this, new Observer<Question>() {
             @Override
             public void onChanged(@Nullable Question question) {
-                //Update Nombre de fois ou la question a etait repondu
+                /*Update Nombre de fois ou la question a etait repondu
                 if(Correct){
-                    //Update Nombre de fois ou elle as bien etait repondu
-                }
+                    Update Nombre de fois ou elle as bien etait repondu
+                }*/
             }
         });
 
         final Dialog dialog = new Dialog(QuizzActivity.this);
         dialog.setContentView(R.layout.popup_post_question);
         dialog.setCancelable(false);
-        ImageView image = (ImageView) dialog.findViewById(R.id.ivYoda);
-        TextView text = (TextView) dialog.findViewById(R.id.tvPhraseYoda);
+        ImageView image = dialog.findViewById(R.id.ivYoda);
+        TextView text = dialog.findViewById(R.id.tvPhraseYoda);
 
         int random = new Random().nextInt((15 - 1)+1)+1;
 
@@ -201,7 +199,7 @@ public class QuizzActivity extends AppCompatActivity {
         }
 
 
-        TextView text1 = (TextView) dialog.findViewById(R.id.tvReponseRes);
+        TextView text1 = dialog.findViewById(R.id.tvReponseRes);
         //Toast.makeText(this, ""+ points, Toast.LENGTH_SHORT).show();
         if(points == 0){
             text1.setText(getString(R.string.reponseTime));
@@ -211,7 +209,7 @@ public class QuizzActivity extends AppCompatActivity {
             }else{
                 points = points /10;
             }
-            if(Correct == true){
+            if(Correct){
                 win_sound.start();
                 text1.setText(getString(R.string.reponseCorrect));
             }else{
@@ -320,10 +318,10 @@ public class QuizzActivity extends AppCompatActivity {
         timer.start();
     }
 
-    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
+        private DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
 

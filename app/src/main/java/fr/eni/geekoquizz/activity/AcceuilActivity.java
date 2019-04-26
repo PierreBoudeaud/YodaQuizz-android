@@ -3,13 +3,9 @@ package fr.eni.geekoquizz.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
-
 import fr.eni.geekoquizz.R;
 import fr.eni.geekoquizz.service.ImportService;
 
@@ -17,7 +13,6 @@ public class AcceuilActivity extends AppCompatActivity {
 
     private static boolean isNotImported = true;
     ImageView ivGif;
-    CountDownTimer timer;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -53,7 +48,7 @@ public class AcceuilActivity extends AppCompatActivity {
 
     }
 
-    public class AsyncImportTask extends AsyncTask<ImportService, Void, Void> {
+    public static class AsyncImportTask extends AsyncTask<ImportService, Void, Void> {
 
         @Override
         protected Void doInBackground(ImportService... importServices) {

@@ -23,14 +23,12 @@ import java.util.Date;
 import java.util.List;
 
 import fr.eni.geekoquizz.R;
-import fr.eni.geekoquizz.adapter.ListQuizzAdapter;
 import fr.eni.geekoquizz.bo.Quizz;
 import fr.eni.geekoquizz.bo.Statistique;
 
 public class InfoFragment extends Fragment {
 
     private static Quizz MonQuizz = new Quizz();
-    private InfostatViewModel mViewModel;
 
     public static InfoFragment newInstance(Quizz MQuizz) {
         MonQuizz = MQuizz;
@@ -47,7 +45,7 @@ public class InfoFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(InfostatViewModel.class);
+        ViewModelProviders.of(this).get(InfostatViewModel.class);
     }
 
     //Ecran Info_Fragment
@@ -83,9 +81,11 @@ public class InfoFragment extends Fragment {
             if(NbQuestion >= 3){ // on prend les 3 premieres images
                 cLayoutImage.setVisibility(View.VISIBLE);
                 List<String> ListImages = MonQuizz.getSomeImagesOfQuestions();
-                ivQuest1.execute("http://yoda.pboudeaud.fr/api/showFile/"+ListImages.get(0));
-                ivQuest2.execute("http://yoda.pboudeaud.fr/api/showFile/"+ListImages.get(1));
-                ivQuest3.execute("http://yoda.pboudeaud.fr/api/showFile/"+ListImages.get(2));
+                if(ListImages != null && ListImages.size() > 0) {
+                    ivQuest1.execute("http://yoda.pboudeaud.fr/api/showFile/" + ListImages.get(0));
+                    ivQuest2.execute("http://yoda.pboudeaud.fr/api/showFile/" + ListImages.get(1));
+                    ivQuest3.execute("http://yoda.pboudeaud.fr/api/showFile/" + ListImages.get(2));
+                }
             }
         }
 
@@ -137,7 +137,7 @@ public class InfoFragment extends Fragment {
     public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
+        private DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
 

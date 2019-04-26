@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -60,14 +61,14 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
         switchLayout(R.id.nav_list_quizz);
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         View headerView = navigationView.getHeaderView(0);
-        TextView tvPseudo = (TextView) headerView.findViewById(R.id.tvPseudo);
+        TextView tvPseudo = headerView.findViewById(R.id.tvPseudo);
         tvPseudo.setText(sp.getString("example_text", ""));
 
         if(isNotLoaded) {
@@ -90,45 +91,49 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onChanged(@Nullable List<Quizz> quizzes) {
                     MainActivity.lesQuizz = quizzes;
-                    for (final Quizz quizz: quizzes) {
-                        ThemeViewModel themeViewModel = ViewModelProviders.of(MainActivity.this).get(ThemeViewModel.class);
-                        themeViewModel.getByQuizz(quizz.getId()).observe(MainActivity.this, new Observer<List<Theme>>() {
-                            @Override
-                            public void onChanged(@Nullable List<Theme> themes) {
-                                quizz.setListThemes(themes);
-                            }
-                        });
-                        UtilisateurViewModel utilisateurVM = ViewModelProviders.of(MainActivity.this).get(UtilisateurViewModel.class);
-                        utilisateurVM.get(quizz.getUtilisateurId()).observe(MainActivity.this, new Observer<Utilisateur>() {
-                            @Override
-                            public void onChanged(@Nullable Utilisateur utilisateur) {
-                                quizz.setUtilisateur(utilisateur);
-                            }
-                        });
-                        TypeViewModel typeVM = ViewModelProviders.of(MainActivity.this).get(TypeViewModel.class);
-                        typeVM.get(quizz.getTypeId()).observe(MainActivity.this, new Observer<Type>() {
-                            @Override
-                            public void onChanged(@Nullable Type type) {
-                                quizz.setType(type);
-                            }
-                        });
-                        QuestionViewModel questionVM = ViewModelProviders.of(MainActivity.this).get(QuestionViewModel.class);
-                        questionVM.getByQuizz(quizz.getId()).observe(MainActivity.this, new Observer<List<Question>>() {
-                            @Override
-                            public void onChanged(@Nullable List<Question> questions) {
-                                quizz.setQuestions(questions);
-                                ReponseViewModel reponseVM = ViewModelProviders.of(MainActivity.this).get(ReponseViewModel.class);
-                                for(final Question question: questions) {
-                                    reponseVM.getByQuestion(question.getId()).observe(MainActivity.this, new Observer<List<Reponse>>() {
-                                        @Override
-                                        public void onChanged(@Nullable List<Reponse> reponses) {
-                                            question.setReponses(reponses);
-                                        }
-                                    });
+                    if(MainActivity.lesQuizz != null) {
+                        for (final Quizz quizz : MainActivity.lesQuizz) {
+                            ThemeViewModel themeViewModel = ViewModelProviders.of(MainActivity.this).get(ThemeViewModel.class);
+                            themeViewModel.getByQuizz(quizz.getId()).observe(MainActivity.this, new Observer<List<Theme>>() {
+                                @Override
+                                public void onChanged(@Nullable List<Theme> themes) {
+                                    quizz.setListThemes(themes);
                                 }
-                                MainActivity.this.switchLayout(R.id.nav_list_quizz);
-                            }
-                        });
+                            });
+                            UtilisateurViewModel utilisateurVM = ViewModelProviders.of(MainActivity.this).get(UtilisateurViewModel.class);
+                            utilisateurVM.get(quizz.getUtilisateurId()).observe(MainActivity.this, new Observer<Utilisateur>() {
+                                @Override
+                                public void onChanged(@Nullable Utilisateur utilisateur) {
+                                    quizz.setUtilisateur(utilisateur);
+                                }
+                            });
+                            TypeViewModel typeVM = ViewModelProviders.of(MainActivity.this).get(TypeViewModel.class);
+                            typeVM.get(quizz.getTypeId()).observe(MainActivity.this, new Observer<Type>() {
+                                @Override
+                                public void onChanged(@Nullable Type type) {
+                                    quizz.setType(type);
+                                }
+                            });
+                            QuestionViewModel questionVM = ViewModelProviders.of(MainActivity.this).get(QuestionViewModel.class);
+                            questionVM.getByQuizz(quizz.getId()).observe(MainActivity.this, new Observer<List<Question>>() {
+                                @Override
+                                public void onChanged(@Nullable List<Question> questions) {
+                                    quizz.setQuestions(questions);
+                                    ReponseViewModel reponseVM = ViewModelProviders.of(MainActivity.this).get(ReponseViewModel.class);
+                                    if (questions != null) {
+                                        for (final Question question : questions) {
+                                            reponseVM.getByQuestion(question.getId()).observe(MainActivity.this, new Observer<List<Reponse>>() {
+                                                @Override
+                                                public void onChanged(@Nullable List<Reponse> reponses) {
+                                                    question.setReponses(reponses);
+                                                }
+                                            });
+                                        }
+                                    }
+                                    MainActivity.this.switchLayout(R.id.nav_list_quizz);
+                                }
+                            });
+                        }
                     }
                 }
             });
@@ -137,7 +142,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -147,8 +152,9 @@ public class MainActivity extends AppCompatActivity
 
 
     @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch (id) {
@@ -172,15 +178,15 @@ public class MainActivity extends AppCompatActivity
 
                 break;
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
 
     public void switchLayout(final int idItem) {
-        final RecyclerView recyclerViewQuizz = (RecyclerView) findViewById(R.id.rvQuizz);
-        final ImageButton btnAddQuizz = (ImageButton) findViewById(R.id.btnAddQuizz);
+        final RecyclerView recyclerViewQuizz = findViewById(R.id.rvQuizz);
+        final ImageButton btnAddQuizz = findViewById(R.id.btnAddQuizz);
         recyclerViewQuizz.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManagerQuizz = new LinearLayoutManager(this);
         final DividerItemDecoration divider = new DividerItemDecoration(recyclerViewQuizz.getContext(), DividerItemDecoration.VERTICAL);

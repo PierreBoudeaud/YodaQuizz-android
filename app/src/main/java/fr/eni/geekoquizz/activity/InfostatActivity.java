@@ -5,33 +5,14 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import org.parceler.Parcels;
-
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import fr.eni.geekoquizz.R;
-import fr.eni.geekoquizz.activity.QuizzActivity;
-import fr.eni.geekoquizz.adapter.ListStatAdapter;
 import fr.eni.geekoquizz.bo.Question;
 import fr.eni.geekoquizz.bo.Quizz;
 import fr.eni.geekoquizz.bo.Reponse;
@@ -51,15 +32,10 @@ import fr.eni.geekoquizz.view_model.UtilisateurViewModel;
 
 public class InfostatActivity extends AppCompatActivity {
 
-    private Fragment monFragment = null;
-
     private Quizz MonQuizz = new Quizz();
-
-    private List<Statistique> ListStat;
 
     private int idQuizz;
 
-    private TextView tvNbQuestion,tvType,DescriptionQuizz,tvAuteur,tvDate,textView12;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -74,39 +50,41 @@ public class InfostatActivity extends AppCompatActivity {
             public void onChanged(@Nullable Quizz quizz) {
                 MonQuizz = quizz;
                 ThemeViewModel themeViewModel = ViewModelProviders.of(InfostatActivity.this).get(ThemeViewModel.class);
-                themeViewModel.getByQuizz(quizz.getId()).observe(InfostatActivity.this, new Observer<List<Theme>>() {
+                themeViewModel.getByQuizz(MonQuizz.getId()).observe(InfostatActivity.this, new Observer<List<Theme>>() {
                     @Override
                     public void onChanged(@Nullable List<Theme> themes) {
                         MonQuizz.setListThemes(themes);
                     }
                 });
                 UtilisateurViewModel utilisateurVM = ViewModelProviders.of(InfostatActivity.this).get(UtilisateurViewModel.class);
-                utilisateurVM.get(quizz.getUtilisateurId()).observe(InfostatActivity.this, new Observer<Utilisateur>() {
+                utilisateurVM.get(MonQuizz.getUtilisateurId()).observe(InfostatActivity.this, new Observer<Utilisateur>() {
                     @Override
                     public void onChanged(@Nullable Utilisateur utilisateur) {
                         MonQuizz.setUtilisateur(utilisateur);
                     }
                 });
                 TypeViewModel typeVM = ViewModelProviders.of(InfostatActivity.this).get(TypeViewModel.class);
-                typeVM.get(quizz.getTypeId()).observe(InfostatActivity.this, new Observer<Type>() {
+                typeVM.get(MonQuizz.getTypeId()).observe(InfostatActivity.this, new Observer<Type>() {
                     @Override
                     public void onChanged(@Nullable Type type) {
                         MonQuizz.setType(type);
                     }
                 });
                 QuestionViewModel questionVM = ViewModelProviders.of(InfostatActivity.this).get(QuestionViewModel.class);
-                questionVM.getByQuizz(quizz.getId()).observe(InfostatActivity.this, new Observer<List<Question>>() {
+                questionVM.getByQuizz(MonQuizz.getId()).observe(InfostatActivity.this, new Observer<List<Question>>() {
                     @Override
                     public void onChanged(@Nullable List<Question> questions) {
                         MonQuizz.setQuestions(questions);
                         ReponseViewModel reponseVM = ViewModelProviders.of(InfostatActivity.this).get(ReponseViewModel.class);
-                        for(final Question question: questions) {
-                            reponseVM.getByQuestion(question.getId()).observe(InfostatActivity.this, new Observer<List<Reponse>>() {
-                                @Override
-                                public void onChanged(@Nullable List<Reponse> reponses) {
-                                    question.setReponses(reponses);
-                                }
-                            });
+                        if(questions != null && questions.size() != 0){
+                            for(final Question question: questions) {
+                                reponseVM.getByQuestion(question.getId()).observe(InfostatActivity.this, new Observer<List<Reponse>>() {
+                                    @Override
+                                    public void onChanged(@Nullable List<Reponse> reponses) {
+                                        question.setReponses(reponses);
+                                    }
+                                });
+                            }
                         }
                         Log.i("Import", MonQuizz.toString());
                         InfostatActivity.this.setTitle(MonQuizz.getNom());
@@ -118,7 +96,7 @@ public class InfostatActivity extends AppCompatActivity {
                     }
                 });
                 StatistiqueViewModel statistiqueViewModel = ViewModelProviders.of(InfostatActivity.this).get(StatistiqueViewModel.class);
-                statistiqueViewModel.getByQuizz(quizz.getId()).observe(InfostatActivity.this, new Observer<List<Statistique>>() {
+                statistiqueViewModel.getByQuizz(MonQuizz.getId()).observe(InfostatActivity.this, new Observer<List<Statistique>>() {
                     @Override
                     public void onChanged(@Nullable List<Statistique> ListStat) {
                         MonQuizz.setStatistiques(ListStat);
