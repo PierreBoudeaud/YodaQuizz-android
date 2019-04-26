@@ -60,60 +60,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(isNotLoaded) {
-            isNotLoaded = !isNotLoaded;
-            importService.importAll();
-//            QuizzViewModel quizzViewModel = ViewModelProviders.of(this).get(QuizzViewModel.class);
-        QuizzViewModel quizzViewModel = QuizzViewModel.getInstance(this);
-        quizzViewModel.get().observe(this, new Observer<List<Quizz>>() {
-            @Override
-            public void onChanged(@Nullable List<Quizz> quizzes) {
-                MainActivity.lesQuizz = quizzes;
-                for (final Quizz quizz: quizzes) {
-                    ThemeViewModel themeViewModel = ViewModelProviders.of(MainActivity.this).get(ThemeViewModel.class);
-                    themeViewModel.getByQuizz(quizz.getId()).observe(MainActivity.this, new Observer<List<Theme>>() {
-                        @Override
-                        public void onChanged(@Nullable List<Theme> themes) {
-                            quizz.setListThemes(themes);
-                        }
-                    });
-                    UtilisateurViewModel utilisateurVM = ViewModelProviders.of(MainActivity.this).get(UtilisateurViewModel.class);
-                    utilisateurVM.get(quizz.getUtilisateurId()).observe(MainActivity.this, new Observer<Utilisateur>() {
-                        @Override
-                        public void onChanged(@Nullable Utilisateur utilisateur) {
-                            quizz.setUtilisateur(utilisateur);
-                        }
-                    });
-                    TypeViewModel typeVM = ViewModelProviders.of(MainActivity.this).get(TypeViewModel.class);
-                    typeVM.get(quizz.getTypeId()).observe(MainActivity.this, new Observer<Type>() {
-                        @Override
-                        public void onChanged(@Nullable Type type) {
-                            quizz.setType(type);
-                        }
-                    });
-                    QuestionViewModel questionVM = ViewModelProviders.of(MainActivity.this).get(QuestionViewModel.class);
-                    questionVM.getByQuizz(quizz.getId()).observe(MainActivity.this, new Observer<List<Question>>() {
-                        @Override
-                        public void onChanged(@Nullable List<Question> questions) {
-                            quizz.setQuestions(questions);
-                            ReponseViewModel reponseVM = ViewModelProviders.of(MainActivity.this).get(ReponseViewModel.class);
-                            for(final Question question: questions) {
-                                reponseVM.getByQuestion(question.getId()).observe(MainActivity.this, new Observer<List<Reponse>>() {
-                                    @Override
-                                    public void onChanged(@Nullable List<Reponse> reponses) {
-                                        question.setReponses(reponses);
-                                    }
-                                });
-                            }
-                            Toast.makeText(MainActivity.this, "Loading finished", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        });
-        }
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -136,10 +82,57 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         TextView tvPseudo = (TextView) headerView.findViewById(R.id.tvPseudo);
         tvPseudo.setText(sp.getString("example_text", ""));
-        /*importService.importThemes();
-        importService.importTypes();
-        importService.importUtilisateurs();
-        importService.importQuizz();*/
+
+        if(isNotLoaded) {
+            isNotLoaded = !isNotLoaded;
+            QuizzViewModel quizzViewModel = QuizzViewModel.getInstance(this);
+            quizzViewModel.get().observe(this, new Observer<List<Quizz>>() {
+                @Override
+                public void onChanged(@Nullable List<Quizz> quizzes) {
+                    MainActivity.lesQuizz = quizzes;
+                    for (final Quizz quizz: quizzes) {
+                        ThemeViewModel themeViewModel = ViewModelProviders.of(MainActivity.this).get(ThemeViewModel.class);
+                        themeViewModel.getByQuizz(quizz.getId()).observe(MainActivity.this, new Observer<List<Theme>>() {
+                            @Override
+                            public void onChanged(@Nullable List<Theme> themes) {
+                                quizz.setListThemes(themes);
+                            }
+                        });
+                        UtilisateurViewModel utilisateurVM = ViewModelProviders.of(MainActivity.this).get(UtilisateurViewModel.class);
+                        utilisateurVM.get(quizz.getUtilisateurId()).observe(MainActivity.this, new Observer<Utilisateur>() {
+                            @Override
+                            public void onChanged(@Nullable Utilisateur utilisateur) {
+                                quizz.setUtilisateur(utilisateur);
+                            }
+                        });
+                        TypeViewModel typeVM = ViewModelProviders.of(MainActivity.this).get(TypeViewModel.class);
+                        typeVM.get(quizz.getTypeId()).observe(MainActivity.this, new Observer<Type>() {
+                            @Override
+                            public void onChanged(@Nullable Type type) {
+                                quizz.setType(type);
+                            }
+                        });
+                        QuestionViewModel questionVM = ViewModelProviders.of(MainActivity.this).get(QuestionViewModel.class);
+                        questionVM.getByQuizz(quizz.getId()).observe(MainActivity.this, new Observer<List<Question>>() {
+                            @Override
+                            public void onChanged(@Nullable List<Question> questions) {
+                                quizz.setQuestions(questions);
+                                ReponseViewModel reponseVM = ViewModelProviders.of(MainActivity.this).get(ReponseViewModel.class);
+                                for(final Question question: questions) {
+                                    reponseVM.getByQuestion(question.getId()).observe(MainActivity.this, new Observer<List<Reponse>>() {
+                                        @Override
+                                        public void onChanged(@Nullable List<Reponse> reponses) {
+                                            question.setReponses(reponses);
+                                        }
+                                    });
+                                }
+                                MainActivity.this.switchLayout(R.id.nav_list_quizz);
+                            }
+                        });
+                    }
+                }
+            });
+        }
     }
 
     @Override

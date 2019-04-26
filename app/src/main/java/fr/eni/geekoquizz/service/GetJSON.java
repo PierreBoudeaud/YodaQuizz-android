@@ -22,11 +22,12 @@ public class GetJSON extends AsyncTask<String, Void, String> {
         }
         catch (IOException e)
         {
+            e.printStackTrace();
             return null;
         }
     }
 
-    public String readStream(BufferedReader buff) throws IOException
+    private String readStream(BufferedReader buff) throws IOException
     {
         StringBuffer stringBuffer = new StringBuffer();
         String line;
