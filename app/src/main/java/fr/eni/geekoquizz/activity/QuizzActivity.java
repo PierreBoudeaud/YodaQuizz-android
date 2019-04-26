@@ -3,6 +3,7 @@ package fr.eni.geekoquizz.activity;
 import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -31,11 +34,15 @@ import fr.eni.geekoquizz.R;
 import fr.eni.geekoquizz.bo.Question;
 import fr.eni.geekoquizz.bo.Quizz;
 import fr.eni.geekoquizz.bo.Reponse;
+import fr.eni.geekoquizz.bo.Statistique;
 import fr.eni.geekoquizz.bo.Theme;
+import fr.eni.geekoquizz.bo.Utilisateur;
 import fr.eni.geekoquizz.view_model.QuestionViewModel;
 import fr.eni.geekoquizz.view_model.QuizzViewModel;
 import fr.eni.geekoquizz.view_model.ReponseViewModel;
+import fr.eni.geekoquizz.view_model.StatistiqueViewModel;
 import fr.eni.geekoquizz.view_model.ThemeViewModel;
+import fr.eni.geekoquizz.view_model.UtilisateurViewModel;
 
 public class QuizzActivity extends AppCompatActivity {
 
@@ -94,7 +101,18 @@ public class QuizzActivity extends AppCompatActivity {
         });
     }
 
-    public void PopUpInterQuestion(boolean Correct){
+    public void PopUpInterQuestion(final boolean Correct){
+        QuestionViewModel questionViewModel = ViewModelProviders.of(this).get(QuestionViewModel.class);
+        questionViewModel.get(indexQuestion).observe(this, new Observer<Question>() {
+            @Override
+            public void onChanged(@Nullable Question question) {
+                //Update Nombre de fois ou la question a etait repondu
+                if(Correct){
+                    //Update Nombre de fois ou elle as bien etait repondu
+                }
+            }
+        });
+
         final Dialog dialog = new Dialog(QuizzActivity.this);
         dialog.setContentView(R.layout.popup_post_question);
         dialog.setCancelable(false);
@@ -284,7 +302,7 @@ public class QuizzActivity extends AppCompatActivity {
         timer.start();
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
         public DownloadImageTask(ImageView bmImage) {
@@ -438,6 +456,17 @@ public class QuizzActivity extends AppCompatActivity {
     public void onQuizzFinished()
     {
         setContentView(R.layout.quizz_finish);
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        Utilisateur user = new Utilisateur(sp.getString("example_text", ""));
+
+        UtilisateurViewModel utilisateurViewModel = ViewModelProviders.of(this).get(UtilisateurViewModel.class);
+        utilisateurViewModel.insert(user);
+
+        Statistique statistique = new Statistique(new Date(),totalPoints,nbCorrectRep,unQuizz,user);
+        StatistiqueViewModel statistiqueViewModel = ViewModelProviders.of(this).get(StatistiqueViewModel.class);
+        statistiqueViewModel.insert(statistique);
+
         ImageView imgGif = findViewById(R.id.ivGif);
         TextView tvResultat = findViewById(R.id.tvResultat);
         tvResultat.setText("Nombre de bonnes reponses : " + nbCorrectRep +" / "+NbQuestion);

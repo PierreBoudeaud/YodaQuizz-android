@@ -44,6 +44,7 @@ import fr.eni.geekoquizz.ui.infostat.StatFragment;
 import fr.eni.geekoquizz.view_model.QuestionViewModel;
 import fr.eni.geekoquizz.view_model.QuizzViewModel;
 import fr.eni.geekoquizz.view_model.ReponseViewModel;
+import fr.eni.geekoquizz.view_model.StatistiqueViewModel;
 import fr.eni.geekoquizz.view_model.ThemeViewModel;
 import fr.eni.geekoquizz.view_model.TypeViewModel;
 import fr.eni.geekoquizz.view_model.UtilisateurViewModel;
@@ -66,7 +67,6 @@ public class InfostatActivity extends AppCompatActivity {
         setContentView(R.layout.infostat__activity);
 
         idQuizz = getIntent().getIntExtra("QuizzStat",0);
-        //MonQuizz = Parcels.unwrap(getIntent().getParcelableExtra("QuizzStat"));
 
         QuizzViewModel quizzVM = ViewModelProviders.of(this).get(QuizzViewModel.class);
         quizzVM.get(idQuizz).observe(this, new Observer<Quizz>() {
@@ -117,19 +117,25 @@ public class InfostatActivity extends AppCompatActivity {
                         }
                     }
                 });
+                StatistiqueViewModel statistiqueViewModel = ViewModelProviders.of(InfostatActivity.this).get(StatistiqueViewModel.class);
+                statistiqueViewModel.getByQuizz(quizz.getId()).observe(InfostatActivity.this, new Observer<List<Statistique>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Statistique> ListStat) {
+                        MonQuizz.setStatistiques(ListStat);
+                    }
+                });
 
             }
         });
     }
 
     public void GetBtnInfo(View view) {
-        //Toast.makeText(this, "Bouton Information", Toast.LENGTH_SHORT).show();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_interchangeable,InfoFragment.newInstance(MonQuizz)).commit();
     }
 
     public void GetBtnPlay(View v) {
         Intent intentPlay = new Intent(v.getContext(), QuizzActivity.class);
-        intentPlay.putExtra("QuizzPlay", Parcels.wrap(MonQuizz));
+        intentPlay.putExtra("QuizzPlay", idQuizz);
         v.getContext().startActivity(intentPlay);
     }
 
