@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.AsyncTask;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -48,11 +49,15 @@ public class QuizzActivity extends AppCompatActivity {
     private int nbCorrectResponse, nbResponseFound, indexQuestion, nbCorrectRep,NbQuestion,points,totalPoints,idQuizz;
     private Question uneQuestion;
     private Quizz unQuizz;
+    private MediaPlayer win_sound = null;
+    private MediaPlayer lose_sound = null;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizz);
+        win_sound = MediaPlayer.create(this, R.raw.win);
+        lose_sound = MediaPlayer.create(this, R.raw.lose);
     }
 
     @Override
@@ -178,8 +183,10 @@ public class QuizzActivity extends AppCompatActivity {
                 points = points /10;
             }
             if(Correct == true){
+                win_sound.start();
                 text1.setText(getString(R.string.reponseCorrect));
             }else{
+                lose_sound.start();
                 points = 0;
                 text1.setText(getString(R.string.reponseWrong));
             }
