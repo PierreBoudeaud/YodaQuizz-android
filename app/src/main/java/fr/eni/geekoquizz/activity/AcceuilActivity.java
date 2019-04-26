@@ -1,17 +1,21 @@
 package fr.eni.geekoquizz.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
 import fr.eni.geekoquizz.R;
+import fr.eni.geekoquizz.service.ImportService;
 
 public class AcceuilActivity extends AppCompatActivity {
 
+    private static boolean isNotImported = true;
     ImageView ivGif;
     CountDownTimer timer;
 
@@ -21,7 +25,7 @@ public class AcceuilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_acceuil);
         ivGif = findViewById(R.id.ivGif);
         Glide.with(this).load("file:///android_asset/yoda_acceuil.gif").into(ivGif);
-        timer = new CountDownTimer(3000, 1000) {
+        /*timer = new CountDownTimer(3000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -32,6 +36,34 @@ public class AcceuilActivity extends AppCompatActivity {
                 Intent intent = new Intent(AcceuilActivity.this, MainActivity.class);
                 AcceuilActivity.this.startActivity(intent);
             }
-        }.start();
+        }.start();*/
+
+        if(isNotImported) {
+            isNotImported = !isNotImported;
+            ImportService importService = new ImportService(this);
+            AsyncImportTask task = new AsyncImportTask();
+            task.execute(importService);
+            importService.importAll();
+            Intent intent = new Intent(AcceuilActivity.this, MainActivity.class);
+            AcceuilActivity.this.startActivity(intent);
+        } else {
+            Intent intent = new Intent(AcceuilActivity.this, MainActivity.class);
+            AcceuilActivity.this.startActivity(intent);
+        }
+
+    }
+
+    public class AsyncImportTask extends AsyncTask<ImportService, Void, Void> {
+
+        @Override
+        protected Void doInBackground(ImportService... importServices) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
     }
 }
