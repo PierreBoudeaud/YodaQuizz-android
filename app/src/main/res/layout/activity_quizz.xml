@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNbQuestionquizz"
-        app:srcCompat="@drawable/quizz1_02" />
+        app:srcCompat="@drawable/icon_image" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -96,7 +96,7 @@
         android:background="@drawable/btn_background_question"
         android:fontFamily="@font/roboto_medium"
         android:onClick="onClickRepD"
-        android:text="Sale Pute"
+        android:text="Reponse D"
         android:textAlignment="center"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
@@ -148,7 +148,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="Quelle est le nom de ta maman ?"
+        android:text="Pourquoi Iron Man meurt dans EndGame ?"
         android:textAlignment="center"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"

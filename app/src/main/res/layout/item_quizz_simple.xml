@@ -38,7 +38,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline10"
                 app:layout_constraintStart_toStartOf="@+id/guideline9"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/quizz1_02" />
+                app:srcCompat="@drawable/icon_image" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline9"
@@ -59,7 +59,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline9"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/quizz1_01" />
+                app:srcCompat="@drawable/icon_image" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline10"
@@ -80,7 +80,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline10"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/quizz1_03" />
+                app:srcCompat="@drawable/icon_image" />
 
             <TextView
                 android:id="@+id/tvTitreQuizz"

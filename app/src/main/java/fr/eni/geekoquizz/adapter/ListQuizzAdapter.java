@@ -2,7 +2,10 @@ package fr.eni.geekoquizz.adapter;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 
 import org.parceler.Parcels;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +35,7 @@ import fr.eni.geekoquizz.bo.Quizz;
 import fr.eni.geekoquizz.activity.InfostatActivity;
 import fr.eni.geekoquizz.activity.QuizzActivity;
 import fr.eni.geekoquizz.bo.Theme;
+import fr.eni.geekoquizz.tools.Random;
 
 public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.ViewHolder>
 {
@@ -49,7 +54,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         // Chaque élément contient seulement une TextView
-        public ImageView ivPhoto1,ivPhoto2,ivPhoto3;
+        public DownloadImageTask ivPhoto1,ivPhoto2,ivPhoto3;
 
         public TextView tvTitre, tvNbQuestion, tvType, tvAuteur, tvDate, tvDecription;
 
@@ -64,9 +69,9 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         public ViewHolder(View v)
         {
             super(v);
-            ivPhoto1 = v.findViewById(R.id.ivPhoto1);
-            ivPhoto2 = v.findViewById(R.id.ivPhoto2);
-            ivPhoto3 = v.findViewById(R.id.ivPhoto3);
+            ivPhoto1 = new ListQuizzAdapter.DownloadImageTask((ImageView) v.findViewById(R.id.ivPhoto1));
+            ivPhoto2 = new ListQuizzAdapter.DownloadImageTask((ImageView) v.findViewById(R.id.ivPhoto2));
+            ivPhoto3 = new ListQuizzAdapter.DownloadImageTask((ImageView) v.findViewById(R.id.ivPhoto3));
             tvTitre = v.findViewById(R.id.tvTitreQuizz);
             tvAuteur = v.findViewById(R.id.tvAuteur);
             tvDate = v.findViewById(R.id.tvDate);
@@ -106,13 +111,38 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         return vh;
     }
 
+    public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder,final int i) {
         final int idQuizz =  mDataset.get(i).getId();
-
-        viewHolder.ivPhoto1.setImageResource(R.drawable.quizz1_01);
-        viewHolder.ivPhoto2.setImageResource(R.drawable.quizz1_02);
-        viewHolder.ivPhoto3.setImageResource(R.drawable.quizz1_03);
+        List<String> ListImages = mDataset.get(i).getSomeImagesOfQuestions();
+        viewHolder.ivPhoto1.execute("http://yoda.pboudeaud.fr/api/showFile/"+ListImages.get(0));
+        viewHolder.ivPhoto2.execute("http://yoda.pboudeaud.fr/api/showFile/"+ListImages.get(1));
+        viewHolder.ivPhoto3.execute("http://yoda.pboudeaud.fr/api/showFile/"+ListImages.get(2));
         viewHolder.tvTitre.setText(mDataset.get(i).getNom());
         viewHolder.tvNbQuestion.setText(String.valueOf(mDataset.get(i).getQuestions().size()));
         viewHolder.rbDifficult.setRating(mDataset.get(i).getDifficulte());
@@ -207,6 +237,7 @@ public class ListQuizzAdapter extends RecyclerView.Adapter<ListQuizzAdapter.View
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
 
     public void getBtn(int id,View view,Quizz quizz){
         switch (id){

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import fr.eni.geekoquizz.tools.Random;
 import fr.eni.geekoquizz.tools.TimestampConverter;
 
 @Parcel
@@ -247,6 +248,24 @@ public class Quizz implements Serializable {
                 themes) {
             addTheme(theme);
         }
+    }
+
+    public List<String> getSomeImagesOfQuestions() {
+        List<String> result = new ArrayList<>();
+        int nbImage = this.questions.size() > 3 ? 3 : this.questions.size();
+        while(result.size() < nbImage) {
+            int num = Random.generate(questions.size()-1);
+            //while(this.questions.get(num).getImage() == "" || result.indexOf(this.questions.get(num).getImage()) > -1){
+                if(result.indexOf(questions.get(num).getImage()) == -1) {
+                    result.add(this.questions.get(num).getImage());
+                }
+                //num = Random.generate(questions.size()-1);
+            //}
+
+        }
+
+
+        return result;
     }
 
     @Override

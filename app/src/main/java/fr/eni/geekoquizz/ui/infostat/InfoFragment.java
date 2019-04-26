@@ -1,11 +1,15 @@
 package fr.eni.geekoquizz.ui.infostat;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +17,13 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import fr.eni.geekoquizz.R;
+import fr.eni.geekoquizz.adapter.ListQuizzAdapter;
 import fr.eni.geekoquizz.bo.Quizz;
 import fr.eni.geekoquizz.bo.Statistique;
 
@@ -49,7 +55,7 @@ public class InfoFragment extends Fragment {
         private RatingBar rbDifficulte;
         private Integer[] TabId = {R.id.ivTheme1,R.id.ivTheme2,R.id.ivTheme3,R.id.ivTheme4,R.id.ivTheme5,R.id.ivTheme6};
         private List<ImageView> ListImageView = new ArrayList<>();
-        private ImageView ivQuest1,ivQuest2,ivQuest3;
+        private DownloadImageTask ivQuest1,ivQuest2,ivQuest3;
         private ConstraintLayout cLayoutImage;
 
     private void SetData(){
@@ -60,7 +66,7 @@ public class InfoFragment extends Fragment {
             }
         }
         int MoyCorrect = 0,MoyPercent = 0;
-        if(MonQuizz.getStatistiques() != null){
+        if(MonQuizz.getStatistiques() != null && MonQuizz.getStatistiques().size() > 0){
             for (Statistique Stat:MonQuizz.getStatistiques()
                  ) {
                 MoyCorrect += Stat.getNbCorrect();
@@ -74,11 +80,12 @@ public class InfoFragment extends Fragment {
         int NbQuestion = 0;
         if(MonQuizz.getQuestions() != null){
             NbQuestion = MonQuizz.getQuestions().size();
-            if(MonQuizz.getQuestions().size() >= 3){ // on prend les 3 premieres images
+            if(NbQuestion >= 3){ // on prend les 3 premieres images
                 cLayoutImage.setVisibility(View.VISIBLE);
-                ivQuest1.setImageResource(R.drawable.quizz1_01);
-                ivQuest2.setImageResource(R.drawable.quizz1_02);
-                ivQuest3.setImageResource(R.drawable.quizz1_03);
+                List<String> ListImages = MonQuizz.getSomeImagesOfQuestions();
+                ivQuest1.execute("http://yoda.pboudeaud.fr/api/showFile/"+ListImages.get(0));
+                ivQuest2.execute("http://yoda.pboudeaud.fr/api/showFile/"+ListImages.get(1));
+                ivQuest3.execute("http://yoda.pboudeaud.fr/api/showFile/"+ListImages.get(2));
             }
         }
 
@@ -109,9 +116,9 @@ public class InfoFragment extends Fragment {
         tvDate          = view.findViewById(R.id.tvDate);
         textView12      = view.findViewById(R.id.textView12);
         rbDifficulte    = view.findViewById(R.id.rbDifficulte);
-        ivQuest1        = view.findViewById(R.id.ivQuest1);
-        ivQuest2        = view.findViewById(R.id.ivQuest2);
-        ivQuest3        = view.findViewById(R.id.ivQuest3);
+        ivQuest1        = new InfoFragment.DownloadImageTask((ImageView) view.findViewById(R.id.ivQuest1));
+        ivQuest2        = new InfoFragment.DownloadImageTask((ImageView) view.findViewById(R.id.ivQuest2));
+        ivQuest3        = new InfoFragment.DownloadImageTask((ImageView) view.findViewById(R.id.ivQuest3));
         cLayoutImage    = view.findViewById(R.id.constraintLayoutImage);
 
         if(MonQuizz.getThemes().size() != 0){
@@ -125,5 +132,30 @@ public class InfoFragment extends Fragment {
         }
 
         SetData();
+    }
+
+    public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }
