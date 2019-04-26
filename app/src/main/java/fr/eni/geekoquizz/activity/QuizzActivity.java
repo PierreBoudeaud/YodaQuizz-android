@@ -99,7 +99,18 @@ public class QuizzActivity extends AppCompatActivity {
                             });
                         }
                         Log.i("QuizzActivity", quizz.toString());
-                        initQuizz(quizz);
+                        CountDownTimer timeout = new CountDownTimer(100, 100) {
+
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                initQuizz(quizz);
+                            }
+                        }.start();
                     }
                 });
             }
